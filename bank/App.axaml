@@ -2,14 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="bank.App"
              xmlns:local="using:bank"
-             RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+             xmlns:styling1="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
+             RequestedThemeVariant="Dark">
 
     <Application.DataTemplates>
-        <local:ViewLocator/>
+        <local:ViewLocator />
     </Application.DataTemplates>
-  
+
     <Application.Styles>
-        <FluentTheme />
+        <styling1:FluentAvaloniaTheme PreferUserAccentColor="True" />
+        <StyleInclude Source="avares://bank/Assets/Icons.axaml" />
+        <StyleInclude Source="avares://bank/Templates/ContentExample.axaml" />
     </Application.Styles>
 </Application>

@@ -1,0 +1,24 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:theme="clr-namespace:bank.Theme"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+             x:Class="bank.Views.FluentSplashScreenView">
+
+    <Panel Background="{x:Static theme:Color.PrimaryGreyHex}">
+        <StackPanel Spacing="10"
+                    VerticalAlignment="Center">
+
+            <ProgressBar Name="ProgressBar1"
+                         MaxWidth="200"
+                         Margin="0"/>
+
+            <TextBlock Text="Loading..."
+                       Name="LoadingText"
+                       HorizontalAlignment="Center"
+                       FontSize="14"
+                       Foreground="{x:Static theme:Color.PrimaryVioletHex}"/>
+        </StackPanel>
+    </Panel>
+</UserControl>
