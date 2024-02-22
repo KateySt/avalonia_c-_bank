@@ -6,7 +6,48 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="bank.Views.HomePageView"
              x:DataType="viewModels1:HomePageViewModel">
-    <Grid RowDefinitions="Auto, *" Margin="20">
-        <Label>home</Label>
+    
+    <Design.DataContext>
+        <viewModels1:HomePageViewModel />
+    </Design.DataContext>
+    
+    <Grid HorizontalAlignment="Right" RowDefinitions="Auto,Auto,Auto,Auto,Auto" Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0"  Width="400" Margin="0,0,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Margin="0,0,0,10" Text="Name:" Grid.Row="0"/>
+            <TextBox Text="{Binding Name, Mode=TwoWay}" Grid.Row="1"/>
+        </Grid>  
+        
+        <Grid Grid.Row="1"  Width="400" Margin="0,0,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Margin="0,0,0,10" Text="Password:" Grid.Row="0"/>
+            <TextBox Text="{Binding Password, Mode=TwoWay}" Grid.Row="1"/>
+        </Grid>  
+        
+        <Button Grid.Row="2"  Content="Create"
+                Command="{Binding CreateOrLoginCommand}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,0"/>
+        
+       
+        <TextBlock Grid.Row="3" Margin="20" 
+                   Text="{Binding User.Name, Mode=OneWay}"/>
+        <TextBlock Grid.Row="4" Margin="20" 
+                   Text="{Binding User.Password, Mode=OneWay}"/>
+
     </Grid>
 </UserControl>

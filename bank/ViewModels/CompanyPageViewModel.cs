@@ -51,7 +51,6 @@ public partial class CompanyPageViewModel : ViewModelBase
 
     private void ExecuteSendEmailCommand()
     {
-        Console.WriteLine($"Name: {Name}, Email: {Email}, Country {Country}");
         var company = new Company(Name, Country);
         var user = new User { Name = Name, Password = "password", Company = company };
         

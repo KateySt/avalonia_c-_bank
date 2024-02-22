@@ -4,15 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace bank.Models;
 
-[Table("Transactions")]
+[Table("transactions")]
 public class Transaction
 {
+    [Key]
     [Column("transaction_id")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { set; get; }
     [Required]
+    [Column("count_product")]
     public int countProduct { set; get; }
     [Required]
     public float price { set; get; }
-    public ICollection<TransactionProduct> TransactionProducts { get; set; } 
+    public ICollection<TransactionProduct>? TransactionProducts { get; set; } 
 }

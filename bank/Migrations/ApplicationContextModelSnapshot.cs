@@ -23,12 +23,12 @@ namespace bank.Migrations
 
             modelBuilder.Entity("bank.Models.Company", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
                         .HasColumnName("company_id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -40,17 +40,17 @@ namespace bank.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies");
+                    b.ToTable("companies");
                 });
 
             modelBuilder.Entity("bank.Models.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("bigint")
                         .HasColumnName("product_id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -58,24 +58,72 @@ namespace bank.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("products");
                 });
 
             modelBuilder.Entity("bank.Models.ProductCompany", b =>
                 {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer")
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint")
                         .HasColumnName("product_id");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer")
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint")
                         .HasColumnName("company_id");
 
                     b.HasKey("ProductId", "CompanyId");
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("ProductCompanies");
+                    b.ToTable("product_company");
+                });
+
+            modelBuilder.Entity("bank.Models.Storage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("storage_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("CompanyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("storages");
+                });
+
+            modelBuilder.Entity("bank.Models.StorageProduct", b =>
+                {
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("product_id");
+
+                    b.Property<long>("StorageId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("storage_id");
+
+                    b.HasKey("ProductId", "StorageId");
+
+                    b.HasIndex("StorageId");
+
+                    b.ToTable("storage_product");
                 });
 
             modelBuilder.Entity("bank.Models.Transaction", b =>
@@ -88,14 +136,15 @@ namespace bank.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<int>("countProduct")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("count_product");
 
                     b.Property<float>("price")
                         .HasColumnType("real");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("transactions");
                 });
 
             modelBuilder.Entity("bank.Models.TransactionProduct", b =>
@@ -104,15 +153,15 @@ namespace bank.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("transaction_id");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer")
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint")
                         .HasColumnName("product_id");
 
                     b.HasKey("TransactionId", "ProductId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("TransactionProducts");
+                    b.ToTable("transaction_product");
                 });
 
             modelBuilder.Entity("bank.Models.User", b =>
@@ -124,8 +173,8 @@ namespace bank.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
+                    b.Property<long?>("CompanyId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -139,7 +188,7 @@ namespace bank.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Users");
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("bank.Models.ProductCompany", b =>
@@ -159,6 +208,32 @@ namespace bank.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("bank.Models.Storage", b =>
+                {
+                    b.HasOne("bank.Models.Company", null)
+                        .WithMany("Storages")
+                        .HasForeignKey("CompanyId");
+                });
+
+            modelBuilder.Entity("bank.Models.StorageProduct", b =>
+                {
+                    b.HasOne("bank.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("bank.Models.Storage", "Storage")
+                        .WithMany()
+                        .HasForeignKey("StorageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Storage");
                 });
 
             modelBuilder.Entity("bank.Models.TransactionProduct", b =>
@@ -184,9 +259,7 @@ namespace bank.Migrations
                 {
                     b.HasOne("bank.Models.Company", "Company")
                         .WithMany("Users")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CompanyId");
 
                     b.Navigation("Company");
                 });
@@ -194,6 +267,8 @@ namespace bank.Migrations
             modelBuilder.Entity("bank.Models.Company", b =>
                 {
                     b.Navigation("ProductCompanies");
+
+                    b.Navigation("Storages");
 
                     b.Navigation("Users");
                 });

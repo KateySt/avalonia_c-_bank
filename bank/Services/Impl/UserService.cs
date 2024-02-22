@@ -13,22 +13,34 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public void AddUser(User user)
+    public User AddUser(User user)
     {
         _userRepository.AddUser(user);
+        return user;
     }
 
-    public void UpdateUser(User user)
+    public User CreateOrFindUser(User user)
+    {
+        if (_userRepository.ExistUser(user))
+        {
+            return _userRepository.GetUserByName(user.Name);
+        }
+        _userRepository.AddUser(user);
+        return user;
+    }
+    
+    public User UpdateUser(User user)
     {
         _userRepository.UpdateUser(user);
+        return user;
     }
 
-    public void DeleteUser(int userId)
+    public void DeleteUser(long userId)
     {
         _userRepository.DeleteUser(userId);
     }
 
-    public User GetUserById(int userId)
+    public User GetUserById(long userId)
     {
         return _userRepository.GetUserById(userId);
     }

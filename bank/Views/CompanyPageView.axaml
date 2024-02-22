@@ -11,7 +11,7 @@
         <viewModels:CompanyPageViewModel />
     </Design.DataContext>
     <ScrollViewer>
-        <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" Margin="20">
+        <Grid HorizontalAlignment="Right" RowDefinitions="Auto,Auto,Auto,Auto" Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto"/>
@@ -19,19 +19,31 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
         
-            <Grid Grid.Row="0"  Width="500" Margin="0,0,0,10">
-                <TextBlock Text="Company name:" />
-                <TextBox Text="{Binding Name, Mode=TwoWay}" />
+            <Grid Grid.Row="0"  Width="400" Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Margin="0,0,0,10" Text="Company name:" Grid.Row="0"/>
+                <TextBox Text="{Binding Name, Mode=TwoWay}" Grid.Row="1"/>
             </Grid>
-        
-            <Grid Grid.Row="1"  Width="500" Margin="0,0,0,10">
-                <TextBlock Text="E-Mail:" />
-                <TextBox Text="{Binding Email, Mode=TwoWay}" />
+            
+            <Grid Grid.Row="1"  Width="400" Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Margin="0,0,0,10" Text="E-Mail:" Grid.Row="0"/>
+                <TextBox Text="{Binding Email, Mode=TwoWay}" Grid.Row="1"/>
             </Grid>
-        
-            <Grid Grid.Row="2"  Width="500" Margin="0,0,0,10">
-                <TextBlock Text="Country:" />
-                <TextBox Text="{Binding Country, Mode=TwoWay}" />
+            
+            <Grid Grid.Row="2"  Width="400" Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Margin="0,0,0,10" Text="Country:" Grid.Row="0"/>
+                <TextBox Text="{Binding Country, Mode=TwoWay}" Grid.Row="1"/>
             </Grid>
         
             <Button Grid.Row="3"  Content="Create"

@@ -4,18 +4,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace bank.Models;
 
-[Table("Companies")]
+[Table("companies")]
 public class Company
 {
+    [Key]
     [Column("company_id")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public long Id { get; set; }
     [Required]
     public string Name { get; set; }
     [Required]
     public string Country { get; set; }
-    public ICollection<User> Users { get; set; }
-    public ICollection<ProductCompany> ProductCompanies { get; set; } 
+    public ICollection<User>? Users { get; set; }
+    public ICollection<ProductCompany>? ProductCompanies { get; set; } 
+    public ICollection<Storage>? Storages { get; set; } = new List<Storage>();
     public Company(string name, string country)
     {
         Name = name;

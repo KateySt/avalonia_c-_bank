@@ -9,8 +9,10 @@ public class ApplicationContext: DbContext
     public DbSet<Product> Products { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Storage> Storages { get; set; }
     public DbSet<ProductCompany> ProductCompanies { get; set; }
     public DbSet<TransactionProduct> TransactionProducts { get; set; }
+    public DbSet<StorageProduct> StorageProducts { get; set; }
  
     public ApplicationContext()
     {
@@ -24,6 +26,9 @@ public class ApplicationContext: DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<StorageProduct>()
+            .HasKey(sp => new { sp.ProductId, sp.StorageId });
+        
         modelBuilder.Entity<ProductCompany>()
             .HasKey(pc => new { pc.ProductId, pc.CompanyId });
         

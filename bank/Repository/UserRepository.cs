@@ -5,7 +5,7 @@ using bank.Models;
 namespace bank.Repository;
 
 public class UserRepository
-{ 
+{
     private readonly ApplicationContext _db;
 
     public UserRepository(ApplicationContext db)
@@ -25,7 +25,12 @@ public class UserRepository
         _db.SaveChanges();
     }
 
-    public void DeleteUser(int userId)
+    public bool ExistUser(User user)
+    {
+        return _db.Users.Any(u => u.Name == user.Name);
+    }
+
+    public void DeleteUser(long userId)
     {
         var user = _db.Users.Find(userId);
         if (user != null)
@@ -34,8 +39,13 @@ public class UserRepository
             _db.SaveChanges();
         }
     }
-
-    public User GetUserById(int userId)
+    
+    public User GetUserByName(string name)
+    {
+        return _db.Users.FirstOrDefault(u => u.Name == name);
+    }
+    
+    public User GetUserById(long userId)
     {
         return _db.Users.Find(userId);
     }

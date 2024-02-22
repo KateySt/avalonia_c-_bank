@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace bank.Models;
 
-[Table("transaction_product")]
-public class TransactionProduct
+[Table("storage_product")]
+public class StorageProduct
 {
-    [Column("transaction_id")]
+    [Column("storage_id")]
     [Required]
-    public long TransactionId { get; set; }
-    public Transaction Transaction { get; set; }
+    public long StorageId { get; set; }
+    public Storage Storage { get; set; }
     [Column("product_id")]
     [Required]
     public long ProductId { get; set; }

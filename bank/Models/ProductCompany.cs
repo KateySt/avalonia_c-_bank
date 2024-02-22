@@ -3,14 +3,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace bank.Models;
 
+[Table("product_company")]
 public class ProductCompany
 {
     [Column("product_id")]
     [Required]
-    public int ProductId { get; set; }
+    public long ProductId { get; set; }
     public Product Product { get; set; }
     [Column("company_id")]
     [Required]
-    public int CompanyId { get; set; }
-    public Company Company { get; set; }
+    public long CompanyId { get; set; }
+    public Company? Company { get; set; }
 }

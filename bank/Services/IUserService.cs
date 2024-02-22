@@ -5,9 +5,10 @@ namespace bank.Services;
 
 public interface IUserService
 {
-    void AddUser(User user);
-    void UpdateUser(User user);
-    void DeleteUser(int userId);
-    User GetUserById(int userId);
+    User AddUser(User user);
+    User UpdateUser(User user);
+    void DeleteUser(long userId);
+    User GetUserById(long userId);
     IEnumerable<User> GetAllUsers();
+    User CreateOrFindUser(User user);
 }
