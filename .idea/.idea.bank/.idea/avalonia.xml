@@ -7,6 +7,7 @@
         <entry key="bank/Assets/Icons.axaml" value="bank/bank.csproj" />
         <entry key="bank/Templates/ContentExample.axaml" value="bank/bank.csproj" />
         <entry key="bank/Views/ButtonPageView.axaml" value="bank/bank.csproj" />
+        <entry key="bank/Views/CompanyPageView.axaml" value="bank/bank.csproj" />
         <entry key="bank/Views/CumpanyPageView.axaml" value="bank/bank.csproj" />
         <entry key="bank/Views/CustomSplashScreenView.axaml" value="bank/bank.csproj" />
         <entry key="bank/Views/DragAndDropPageView.axaml" value="bank/bank.csproj" />

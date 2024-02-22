@@ -7,9 +7,38 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="bank.Views.CompanyPageView"
              x:DataType="viewModels:CompanyPageViewModel">
+    <Design.DataContext>
+        <viewModels:CompanyPageViewModel />
+    </Design.DataContext>
     <ScrollViewer>
-        <StackPanel Margin="20">
-            <Label>button</Label>
-        </StackPanel>
+        <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        
+            <Grid Grid.Row="0"  Width="500" Margin="0,0,0,10">
+                <TextBlock Text="Company name:" />
+                <TextBox Text="{Binding Name, Mode=TwoWay}" />
+            </Grid>
+        
+            <Grid Grid.Row="1"  Width="500" Margin="0,0,0,10">
+                <TextBlock Text="E-Mail:" />
+                <TextBox Text="{Binding Email, Mode=TwoWay}" />
+            </Grid>
+        
+            <Grid Grid.Row="2"  Width="500" Margin="0,0,0,10">
+                <TextBlock Text="Country:" />
+                <TextBox Text="{Binding Country, Mode=TwoWay}" />
+            </Grid>
+        
+            <Button Grid.Row="3"  Content="Create"
+                    Command="{Binding SendEmailCommand}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,0,0"/>
+        </Grid>
     </ScrollViewer>
 </UserControl>
