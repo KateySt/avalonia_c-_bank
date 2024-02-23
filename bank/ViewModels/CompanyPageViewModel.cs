@@ -1,5 +1,5 @@
-﻿using System;
-using System.Reactive;
+﻿using System.Reactive;
+using bank.Context;
 using bank.Models;
 using bank.Repository;
 using bank.Services;
@@ -16,11 +16,11 @@ public partial class CompanyPageViewModel : ViewModelBase
     private string _name;
     private string _email;
     private string _country;
-    private readonly IUserService _userService = new UserService(new UserRepository(new ApplicationContext()));
+    private readonly ICompanyService _companyService = new CompanyService(new CompanyRepository(new ApplicationContext()));
 
     public CompanyPageViewModel()
     {
-        SendEmailCommand = ReactiveCommand.Create(ExecuteSendEmailCommand, this.WhenAnyValue(
+        CreateCompanyCommand = ReactiveCommand.Create(ExecuteCreateCompanyCommand, this.WhenAnyValue(
             x => x.Name,
             x => x.Email,
             x=>x.Country,
@@ -47,13 +47,10 @@ public partial class CompanyPageViewModel : ViewModelBase
         set { _country = value; OnPropertyChanged(nameof(Country)); }
     }
 
-    public ReactiveCommand<Unit, Unit> SendEmailCommand { get; }
+    public ReactiveCommand<Unit, Unit> CreateCompanyCommand { get; }
 
-    private void ExecuteSendEmailCommand()
+    private void ExecuteCreateCompanyCommand()
     {
-        var company = new Company(Name, Country);
-        var user = new User { Name = Name, Password = "password", Company = company };
-        
-        _userService.AddUser(user);
+        _companyService.Add(new Company(Name, Country));
     }
 }

@@ -1,6 +1,6 @@
 using bank.Models;
 using Microsoft.EntityFrameworkCore;
-namespace bank.Repository;
+namespace bank.Context;
 
 public class ApplicationContext: DbContext
 {

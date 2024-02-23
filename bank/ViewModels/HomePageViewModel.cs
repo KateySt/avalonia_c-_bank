@@ -1,4 +1,5 @@
 ﻿using System.Reactive;
+using bank.Context;
 using bank.Models;
 using bank.Repository;
 using bank.Services;
@@ -12,6 +13,7 @@ public class HomePageViewModel : ViewModelBase
     private string _name;
     private string _password;
     private User _user;
+    private bool _isEmpty;
     private readonly IUserService _userService = new UserService(new UserRepository(new ApplicationContext()));
     
     public HomePageViewModel()
@@ -38,10 +40,20 @@ public class HomePageViewModel : ViewModelBase
     public User User
     {
         get => _user;
-        set { _user = value; OnPropertyChanged(nameof(User)); }
+        set   { 
+            _user = value; 
+            OnPropertyChanged(nameof(User)); 
+            IsUserEmpty = _user != null;
+        }
     }
     
     public ReactiveCommand<Unit, Unit> CreateOrLoginCommand { get; }
+
+    public bool IsUserEmpty
+    {
+        get => _isEmpty;
+        set { _isEmpty = value; OnPropertyChanged(nameof(IsUserEmpty)); }
+    }
 
     private void CreateUser()
     {

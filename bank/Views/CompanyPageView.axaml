@@ -47,7 +47,7 @@
             </Grid>
         
             <Button Grid.Row="3"  Content="Create"
-                    Command="{Binding SendEmailCommand}"
+                    Command="{Binding CreateCompanyCommand}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Margin="0,0,0,0"/>
