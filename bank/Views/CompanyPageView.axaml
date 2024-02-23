@@ -3,15 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:bank.ViewModels"
-
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="bank.Views.CompanyPageView"
              x:DataType="viewModels:CompanyPageViewModel">
+    
     <Design.DataContext>
         <viewModels:CompanyPageViewModel />
     </Design.DataContext>
+    
     <ScrollViewer>
-        <Grid HorizontalAlignment="Right" RowDefinitions="Auto,Auto,Auto,Auto" Margin="20">
+        <Grid IsVisible="{Binding Source={x:Static viewModels:GlobalStorage.Instance}, Path=IsUserEmpty}" HorizontalAlignment="Right" RowDefinitions="Auto,Auto,Auto,Auto" Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto"/>

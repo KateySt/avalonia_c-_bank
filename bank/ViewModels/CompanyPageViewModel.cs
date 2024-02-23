@@ -12,7 +12,6 @@ namespace bank.ViewModels;
 public partial class CompanyPageViewModel : ViewModelBase
 {
     [ObservableProperty] private bool _isButtonEnabled = true;
-    
     private string _name;
     private string _email;
     private string _country;

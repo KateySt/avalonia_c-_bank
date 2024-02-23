@@ -16,7 +16,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid IsVisible="{Binding !IsUserEmpty}" Grid.Row="0" RowDefinitions="Auto,Auto,Auto">
+        <Grid IsVisible="{Binding Source={x:Static viewModels1:GlobalStorage.Instance}, Path=!IsUserEmpty}" Grid.Row="0"
+              RowDefinitions="Auto,Auto,Auto">
             <Grid Grid.Row="0" Width="400" Margin="0,0,0,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -42,7 +43,8 @@
                     Margin="0,0,0,0" />
         </Grid>
 
-        <Grid IsVisible="{Binding IsUserEmpty}" Grid.Row="1" RowDefinitions="Auto,Auto,Auto">
+        <Grid IsVisible="{Binding Source={x:Static viewModels1:GlobalStorage.Instance}, Path=IsUserEmpty}" Grid.Row="1"
+              RowDefinitions="Auto,Auto,Auto">
             <TextBlock Grid.Row="0" Margin="20"
                        Text="{Binding User.Name, Mode=OneWay}" />
             <TextBlock Grid.Row="1" Margin="20"
