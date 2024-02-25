@@ -6,9 +6,10 @@ using bank.ViewModels;
 using bank.Views;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+
 namespace bank;
 
-public partial class App : Application
+public class App : Application
 {
     public override void Initialize()
     {
@@ -38,7 +39,7 @@ public partial class App : Application
 
         base.OnFrameworkInitializationCompleted();
     }
-    
+
     static void ConfigureViewModels(IServiceCollection services)
     {
         services.AddSingleton<MainWindowViewModel>();
@@ -48,7 +49,7 @@ public partial class App : Application
         services.AddSingleton<StoragePageViewModel>();
         services.AddSingleton<CustomSplashScreenViewModel>();
     }
-    
+
     static void ConfigureViews(IServiceCollection services)
     {
         services.AddSingleton<MainWindow>();

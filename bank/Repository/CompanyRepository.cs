@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using bank.Context;
 using bank.Models;
-using bank.ViewModels;
 
 namespace bank.Repository;
 

@@ -15,5 +15,5 @@ public class User
     public string Name { set; get; }
     [Required]
     public string Password { set; get; }
-    public ICollection<Company>? Company { get; set; }
+    public ICollection<Company>? Companies { get; set; }
 }

@@ -19,7 +19,7 @@ public class Company
     [ForeignKey("user_id")]
     public User? User { get; set; }
     public ICollection<ProductCompany>? ProductCompanies { get; set; } 
-    public ICollection<Storage>? Storages { get; set; } = new List<Storage>();
+    public ICollection<Storage>? Storages { get; set; }
 
     public Company(string name, string country, string image)
     {

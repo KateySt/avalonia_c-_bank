@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using bank.Context;
@@ -47,5 +48,10 @@ public class StorageRepository(ApplicationContext db)
     public IEnumerable<Storage> GetAllStorages()
     {
         return db.Storages.ToList();
+    }
+    
+    public IEnumerable<Storage> GetAllStoragesByCompanyId(long companyId)
+    {
+        return db.Storages.Where(c => c.Company != null && c.Company.Id==companyId).ToList();
     }
 }

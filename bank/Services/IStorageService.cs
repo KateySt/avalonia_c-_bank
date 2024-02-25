@@ -10,4 +10,5 @@ public interface IStorageService
     void Delete(long storageId);
     Storage GetStorageById(long storageId);
     IEnumerable<Storage> GetAllStorages();
+    IEnumerable<Storage> GetAllStoragesByCompanyId(long companyId);
 }

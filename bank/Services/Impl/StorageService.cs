@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using bank.Models;
 using bank.Repository;
@@ -31,5 +32,10 @@ public class StorageService(StorageRepository storageRepository): IStorageServic
     public IEnumerable<Storage> GetAllStorages()
     {
         return storageRepository.GetAllStorages();
+    }
+
+    public IEnumerable<Storage> GetAllStoragesByCompanyId(long companyId)
+    {
+        return storageRepository.GetAllStoragesByCompanyId(companyId);
     }
 }

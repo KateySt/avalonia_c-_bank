@@ -9,8 +9,28 @@ public class GlobalStorage : INotifyPropertyChanged
     private static GlobalStorage _instance;
     public static GlobalStorage Instance => _instance ??= new GlobalStorage();
 
+    private Company _selectedCompany;
+    public Company SelectedCompany
+    {
+        get => _selectedCompany;
+        set
+        {
+            _selectedCompany= value;
+            OnPropertyChanged(nameof(SelectedCompany));
+        }
+    }
+    private IEnumerable<Storage> _storages= new List<Storage>();
+    public IEnumerable<Storage> Storages
+    {
+        get => _storages;
+        set
+        {
+            _storages = value;
+            OnPropertyChanged(nameof(Storages));
+        }
+    }
+    
     private User _user;
-
     public User User
     {
         get => _user;

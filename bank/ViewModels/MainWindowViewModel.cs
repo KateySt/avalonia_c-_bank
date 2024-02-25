@@ -56,8 +56,7 @@ public class ListItemTemplate
     {
         ModelType = type;
         Label = type.Name.Replace("PageViewModel", "");
-
-        // TODO: see if there's a better way to look for a resource by key
+        
         Application.Current!.TryFindResource(iconKey, out var res);
         var streamGeometry = res as StreamGeometry ?? StreamGeometry.Parse(StreamGeometryNotFound);
         ListItemIcon = streamGeometry;
