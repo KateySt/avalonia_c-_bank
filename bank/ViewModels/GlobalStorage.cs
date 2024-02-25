@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using bank.Models;
 
@@ -34,6 +35,17 @@ public class GlobalStorage : INotifyPropertyChanged
         }
     }
 
+    private IEnumerable<Company> _companies= new List<Company>();
+
+    public IEnumerable<Company> Companies
+    {
+        get => _companies;
+        set
+        {
+            _companies = value;
+            OnPropertyChanged(nameof(Companies));
+        }
+    }
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected virtual void OnPropertyChanged(string propertyName)

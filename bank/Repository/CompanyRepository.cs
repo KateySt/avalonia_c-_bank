@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using bank.Context;
 using bank.Models;
+using bank.ViewModels;
 
 namespace bank.Repository;
 
@@ -47,5 +49,10 @@ public class CompanyRepository(ApplicationContext db)
     public IEnumerable<Company> GetAllCompanies()
     {
         return db.Companies.ToList();
+    }
+    
+    public IEnumerable<Company> GetAllCompaniesByUserId(long userId)
+    {
+        return db.Companies.Where(c => c.User != null && c.User.Id==userId).ToList();
     }
 }

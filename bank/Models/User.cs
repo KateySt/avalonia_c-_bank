@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,5 +15,5 @@ public class User
     public string Name { set; get; }
     [Required]
     public string Password { set; get; }
-    public Company? Company { get; set; }
+    public ICollection<Company>? Company { get; set; }
 }

@@ -11,4 +11,5 @@ public interface ICompanyService
     Company GetCompanyById(long companyId);
     IEnumerable<Company> GetAllCompanies();
     Company CreateOrFindUser(Company company);
+    IEnumerable<Company> GetAllCompaniesByUserId(long userId);
 }

@@ -4,7 +4,6 @@ using bank.Models;
 using bank.Repository;
 using bank.Services;
 using bank.Services.Impl;
-
 using ReactiveUI;
 
 namespace bank.ViewModels;

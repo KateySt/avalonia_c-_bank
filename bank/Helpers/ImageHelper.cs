@@ -1,45 +1,38 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Reflection;
-using System.Threading.Tasks;
+using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 
 namespace bank.Helpers;
 
-public static class ImageHelper
+public class ImageHelper : IValueConverter
 {
-    public static Bitmap LoadFromResource(string resourcePath)
-    {
-        Uri resourceUri;
-        if (!resourcePath.StartsWith("avares://"))
-        {
-            var assemblyName = Assembly.GetEntryAssembly()?.GetName().Name;
-            resourceUri = new Uri($"avares://{assemblyName}/{resourcePath.TrimStart('/')}");
-        }
-        else
-        {
-            resourceUri = new Uri(resourcePath);
-        }
-        return new Bitmap(AssetLoader.Open(resourceUri));
-    }
+    public static readonly ImageHelper Instance = new();
 
-    public static async Task<Bitmap?> LoadFromWeb(string resourcePath)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        var uri = new Uri(resourcePath);
-        using var httpClient = new HttpClient();
+        if (value == null || !(value is string imageUrl))
+            return null;
+
         try
         {
+            using var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("AvaloniaTest", "0.1"));
-            var data = await httpClient.GetByteArrayAsync(uri);
+            var data = httpClient.GetByteArrayAsync(imageUrl).Result;
             return new Bitmap(new MemoryStream(data));
         }
         catch (HttpRequestException ex)
         {
-            Console.WriteLine($"An error occurred while downloading image '{uri}' : {ex.Message}");
+            Console.WriteLine($"An error occurred while downloading image '{imageUrl}' : {ex.Message}");
             return null;
         }
+    }
+    
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
     }
 }

@@ -42,4 +42,9 @@ public class CompanyService(CompanyRepository companyRepository) : ICompanyServi
         companyRepository.AddCompany(company);
         return company;
     }
+
+    public IEnumerable<Company> GetAllCompaniesByUserId(long userId)
+    {
+        return companyRepository.GetAllCompaniesByUserId(userId);
+    }
 }
