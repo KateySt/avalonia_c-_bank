@@ -15,6 +15,7 @@ public class ApplicationContext : DbContext
     public DbSet<ProductCompany> ProductCompanies { get; set; }
     public DbSet<TransactionProduct> TransactionProducts { get; set; }
     public DbSet<StorageProduct> StorageProducts { get; set; }
+    public DbSet<TransactionCompany> TransactionCompanies { get; set; }
 
     public ApplicationContext()
     {
@@ -36,5 +37,8 @@ public class ApplicationContext : DbContext
 
         modelBuilder.Entity<TransactionProduct>()
             .HasKey(tp => new { tp.TransactionId, tp.ProductId });
+        
+        modelBuilder.Entity<TransactionCompany>()
+            .HasKey(tp => new { tp.TransactionId, tp.CompanyId });
     }
 }

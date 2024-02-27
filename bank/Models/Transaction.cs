@@ -18,4 +18,5 @@ public class Transaction
     public float price { set; get; }
 
     public List<TransactionProduct>? TransactionProducts { get; set; } = new();
+    public List<TransactionCompany>? TransactionCompanies { get; set; } = new();
 }
