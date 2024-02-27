@@ -3,13 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:bank.ViewModels"
-             xmlns:helpers="clr-namespace:bank.Helpers"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="bank.Views.StoragePageView"
              x:DataType="viewModels:StoragePageViewModel">
-    <UserControl.Resources>
-        <helpers:ImageHelper x:Key="ImageHelper" />
-    </UserControl.Resources>
     <Design.DataContext>
         <viewModels:StoragePageViewModel />
     </Design.DataContext>
@@ -64,8 +60,9 @@
                     </Button>
                     <Grid x:Name="modal" EffectiveViewportChanged="ChangeModal" Margin="10">
                         <Border HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <Grid RowDefinitions="Auto,Auto,Auto">
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto">
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
@@ -90,8 +87,18 @@
                                     <TextBox x:Name="count" Text="{Binding Count, Mode=TwoWay}"
                                              Grid.Row="1" />
                                 </Grid>
-
-                                <Button Grid.Row="2" Content="Create"
+                                
+                                <Grid Grid.Row="2" Width="400" Margin="0,0,0,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="0,0,0,10" Text="Price:" Grid.Row="0" />
+                                    <TextBox x:Name="price" Text="{Binding Price, Mode=TwoWay}"
+                                             Grid.Row="1" />
+                                </Grid>
+                                
+                                <Button Grid.Row="3" Content="Create"
                                         Click="ClickHandler"
                                         Command="{Binding CreateProductCommand}"
                                         HorizontalAlignment="Right"

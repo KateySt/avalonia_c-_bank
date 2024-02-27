@@ -24,6 +24,7 @@ public partial class StoragePageView : UserControl
         modal.IsVisible = !modal.IsVisible;
         name.Text = "";
         count.Text = "";
+        price.Text = "";
     }
 
     private void ChangeModal(object? sender, EffectiveViewportChangedEventArgs e)

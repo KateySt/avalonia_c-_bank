@@ -13,9 +13,7 @@ public class Transaction
     public long Id { set; get; }
     [Required]
     [Column("count_product")]
-    public int countProduct { set; get; }
-    [Required]
-    public float price { set; get; }
+    public int CountProduct { set; get; }
 
     public List<TransactionProduct>? TransactionProducts { get; set; } = new();
     public List<TransactionCompany>? TransactionCompanies { get; set; } = new();

@@ -11,7 +11,8 @@ namespace bank.ViewModels;
 public class StoragePageViewModel : ViewModelBase
 {
     private string _name;
-    private string _count;
+    private int _count;
+    private float _price;
     private Storage _selectedStorage;
     private  List<Storage> _storages = GlobalStorage.Instance.Storages;
     private bool _isSelectedStorage;
@@ -32,8 +33,12 @@ public class StoragePageViewModel : ViewModelBase
         CreateProductCommand = ReactiveCommand.Create(ExecuteCreateProductCommand, this.WhenAnyValue(
             x => x.Name,
             x => x.Count,
-            (name, count) => !string.IsNullOrWhiteSpace(name)
-                             && !string.IsNullOrWhiteSpace(count)));
+            x => x.Price,
+            (name, count, price) =>
+                !string.IsNullOrWhiteSpace(name)
+                && int.IsPositive(count)
+                && float.IsPositive(price)
+        ));
         GlobalStorage.Instance.Storages =
             _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
         Storages = GlobalStorage.Instance.Storages;
@@ -90,7 +95,7 @@ public class StoragePageViewModel : ViewModelBase
         }
     }
 
-    public string Count
+    public int Count
     {
         get => _count;
         set
@@ -99,10 +104,20 @@ public class StoragePageViewModel : ViewModelBase
             OnPropertyChanged(nameof(Count));
         }
     }
+    
+    public float Price
+    {
+        get => _price;
+        set
+        {
+            _price = value;
+            OnPropertyChanged(nameof(Price));
+        }
+    }
 
     private void ExecuteCreateProductCommand()
     {
-        var product = new Product(Name, Count);
+        var product = new Product(Name, Count, Price);
         var storageProduct = new StorageProduct
         {
             StorageId = GlobalStorage.Instance.SelectedStorage.Id,
