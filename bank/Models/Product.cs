@@ -12,7 +12,17 @@ public class Product
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { get; set; }
     [Required]
+    [Column("name")]
     public string Name { get; set; }
-    public ICollection<ProductCompany>? ProductCompanies { get; set; } 
-    public ICollection<TransactionProduct>? TransactionProducts { get; set; }
+    [Required]
+    [Column("count")]
+    public string Count { get; set; }
+    public List<ProductCompany>? ProductCompanies { get; set; } = new();
+    public List<StorageProduct>? StorageProducts { get; set; } = new();
+    public List<TransactionProduct>? TransactionProducts { get; set; } = new();
+    public Product(string name, string count)
+    {
+        Name = name;
+        Count = count;
+    }
 }

@@ -28,8 +28,18 @@ public class ProductService(ProductRepository productRepository) : IProductServi
         return productRepository.GetProductById(productId);
     }
 
-    public IEnumerable<Product> GetAllProducts()
+    public  List<Product> GetAllProducts()
     {
         return productRepository.GetAllProducts();
+    }
+    
+    public  List<Product> GetAllProductsByStorageId(long storageId)
+    {
+        return productRepository.GetAllProductsByStorageId(storageId);
+    }
+    
+    public  List<Product> GetAllProductsByCompanyId(long companyId)
+    {
+        return productRepository.GetAllProductsByCompanyId(companyId);
     }
 }

@@ -5,47 +5,87 @@ using bank.Models;
 
 namespace bank.Repository;
 
-public class ProductRepository(ApplicationContext db)
+public class ProductRepository()
 {
     public void AddProduct(Product product)
     {
-        db.Products.Add(product);
-        db.SaveChanges();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            db.Products.Add(product);
+            db.SaveChanges();
+        }
     }
 
     public void UpdateProduct(Product product)
     {
-        db.Products.Update(product);
-        db.SaveChanges();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            db.Products.Update(product);
+            db.SaveChanges();
+        }
     }
 
     public bool ExistProduct(Product product)
     {
-        return db.Products.Any(p => p.Name == product.Name);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Products.Any(p => p.Name == product.Name);
+        }
     }
 
     public void DeleteProduct(long productId)
     {
-        var product = db.Products.Find(productId);
-        if (product != null)
+        using (ApplicationContext db = new ApplicationContext())
         {
-            db.Products.Remove(product);
-            db.SaveChanges();
+            var product = db.Products.Find(productId);
+            if (product != null)
+            {
+                db.Products.Remove(product);
+                db.SaveChanges();
+            }
         }
     }
     
     public Product GetProductByName(string name)
     {
-        return db.Products.FirstOrDefault(p => p.Name == name);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Products.FirstOrDefault(p => p.Name == name);
+        }
     }
     
     public Product GetProductById(long productId)
     {
-        return db.Products.Find(productId);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Products.Find(productId);
+        }
     }
 
-    public IEnumerable<Product> GetAllProducts()
+    public  List<Product> GetAllProducts()
     {
-        return db.Products.ToList();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Products.ToList();
+        }
+    }
+    
+    public  List<Product> GetAllProductsByStorageId(long storageId)
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Products
+                .Where(p => p.StorageProducts != null && p.StorageProducts.Any(s => s.StorageId == storageId)).ToList();
+        }
+    }
+    
+    public  List<Product> GetAllProductsByCompanyId(long companyId)
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Products
+                .Where(p => p.ProductCompanies != null && p.ProductCompanies.Any(c => c.CompanyId == companyId))
+                .ToList();
+        }
     }
 }

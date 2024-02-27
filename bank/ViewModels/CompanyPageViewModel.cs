@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Reactive;
-using bank.Context;
 using bank.Models;
 using bank.Repository;
 using bank.Services;
@@ -18,14 +17,15 @@ public class CompanyPageViewModel : ViewModelBase
     private string _nameStorage;
     private string _countryStorage;
     private string _sizeStorage;
-    private static readonly ApplicationContext _ap = new ApplicationContext();
     private readonly ICompanyService _companyService =
-        new CompanyService(new CompanyRepository(_ap));
+        new CompanyService(new CompanyRepository());
     private readonly IStorageService _storageService =
-        new StorageService(new StorageRepository(_ap));
-    private readonly IUserService _userService = new UserService(new UserRepository(_ap));
-    private IEnumerable<Company> _companies = GlobalStorage.Instance.Companies;
-    private IEnumerable<Storage> _storages = GlobalStorage.Instance.Storages;
+        new StorageService(new StorageRepository());
+    private readonly IUserService _userService =
+        new UserService(new UserRepository());
+    
+    private  List<Company> _companies = GlobalStorage.Instance.Companies;
+    private  List<Storage> _storages = GlobalStorage.Instance.Storages;
     public ReactiveCommand<Unit, Unit> CreateCompanyCommand { get; }
     public ReactiveCommand<Unit, Unit> CreateStorageCommand { get; }
     private Company _selectedCompany;
@@ -41,20 +41,20 @@ public class CompanyPageViewModel : ViewModelBase
             (name, email, country) => !string.IsNullOrWhiteSpace(name)
                                       && !string.IsNullOrWhiteSpace(email)
                                       && !string.IsNullOrWhiteSpace(country)));
-        
-        CreateStorageCommand= ReactiveCommand.Create(ExecuteCreateStorageCommand, this.WhenAnyValue(
+
+        CreateStorageCommand = ReactiveCommand.Create(ExecuteCreateStorageCommand, this.WhenAnyValue(
             x => x.StorageName,
             x => x.StorageCountry,
-            x=>x.StorageSize,
-            (name, country,size) => !string.IsNullOrWhiteSpace(name)
-                                      && !string.IsNullOrWhiteSpace(country)
-                                      && !string.IsNullOrWhiteSpace(size)));
-        
+            x => x.StorageSize,
+            (name, country, size) => !string.IsNullOrWhiteSpace(name)
+                                     && !string.IsNullOrWhiteSpace(country)
+                                     && !string.IsNullOrWhiteSpace(size)));
+
         GlobalStorage.Instance.Companies = _companyService.GetAllCompaniesByUserId(GlobalStorage.Instance.User.Id);
         Companies = GlobalStorage.Instance.Companies;
     }
-    
-    public IEnumerable<Company> Companies
+
+    public  List<Company> Companies
     {
         get => _companies;
         set
@@ -69,7 +69,8 @@ public class CompanyPageViewModel : ViewModelBase
     {
         SelectedCompany = null;
     }
-    public IEnumerable<Storage> Storages
+
+    public  List<Storage> Storages
     {
         get => _storages;
         set
@@ -79,7 +80,7 @@ public class CompanyPageViewModel : ViewModelBase
             _storages = GlobalStorage.Instance.Storages;
         }
     }
-    
+
     public string Name
     {
         get => _name;
@@ -119,7 +120,7 @@ public class CompanyPageViewModel : ViewModelBase
             OnPropertyChanged(nameof(Country));
         }
     }
-    
+
     public string StorageCountry
     {
         get => _countryStorage;
@@ -139,7 +140,7 @@ public class CompanyPageViewModel : ViewModelBase
             OnPropertyChanged(nameof(StorageName));
         }
     }
-    
+
     public string StorageSize
     {
         get => _sizeStorage;
@@ -149,7 +150,7 @@ public class CompanyPageViewModel : ViewModelBase
             OnPropertyChanged(nameof(StorageSize));
         }
     }
-    
+
     public Company SelectedCompany
     {
         get => _selectedCompany;
@@ -164,7 +165,7 @@ public class CompanyPageViewModel : ViewModelBase
             }
         }
     }
-    
+
     public Storage SelectedStorage
     {
         get => _selectedStorage;
@@ -174,6 +175,7 @@ public class CompanyPageViewModel : ViewModelBase
             {
                 _selectedStorage = value;
                 OnPropertyChanged(nameof(SelectedStorage));
+                GlobalStorage.Instance.SelectedStorage = _selectedStorage;
             }
         }
     }
@@ -183,7 +185,7 @@ public class CompanyPageViewModel : ViewModelBase
         get => _isSelectedCompany;
         set
         {
-            _isSelectedCompany =value;
+            _isSelectedCompany = value;
             OnPropertyChanged(nameof(IsSelectedCompany));
         }
     }
@@ -192,7 +194,7 @@ public class CompanyPageViewModel : ViewModelBase
     {
         var storage = new Storage(StorageName, StorageCountry, StorageSize);
         storage.Company = SelectedCompany;
-        List<Storage> storages = new List<Storage>(_storageService.GetAllStoragesByCompanyId(SelectedCompany.Id));
+        List<Storage> storages = _storageService.GetAllStoragesByCompanyId(SelectedCompany.Id);
         storages.Add(storage);
         SelectedCompany.Storages = storages;
         _companyService.Update(SelectedCompany);
@@ -203,7 +205,7 @@ public class CompanyPageViewModel : ViewModelBase
     {
         var company = new Company(Name, Country, Image);
         company.User = GlobalStorage.Instance.User;
-        List<Company> companies = new List<Company>(_companyService.GetAllCompaniesByUserId(GlobalStorage.Instance.User.Id));
+        List<Company> companies = _companyService.GetAllCompaniesByUserId(GlobalStorage.Instance.User.Id);
         companies.Add(company);
         GlobalStorage.Instance.User.Companies = companies;
         _userService.Update(GlobalStorage.Instance.User);

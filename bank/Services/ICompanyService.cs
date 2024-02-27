@@ -9,7 +9,7 @@ public interface ICompanyService
     Company Update(Company company);
     void Delete(long companyId);
     Company GetCompanyById(long companyId);
-    IEnumerable<Company> GetAllCompanies();
+    List<Company> GetAllCompanies();
     Company CreateOrFindUser(Company company);
-    IEnumerable<Company> GetAllCompaniesByUserId(long userId);
+    List<Company> GetAllCompaniesByUserId(long userId);
 }

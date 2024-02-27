@@ -6,52 +6,76 @@ using bank.Models;
 
 namespace bank.Repository;
 
-public class StorageRepository(ApplicationContext db)
+public class StorageRepository()
 {
     public void AddStorage(Storage storage)
     {
-        db.Storages.Add(storage);
-        db.SaveChanges();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            db.Storages.Add(storage);
+            db.SaveChanges();
+        }
     }
 
     public void UpdateStorage(Storage storage)
     {
-        db.Storages.Update(storage);
-        db.SaveChanges();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            db.Storages.Update(storage);
+            db.SaveChanges();
+        }
     }
 
     public bool ExistStorage(Storage storage)
     {
-        return db.Storages.Any(s => s.Name == storage.Name);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Storages.Any(s => s.Name == storage.Name);
+        }
     }
 
     public void DeleteStorage(long storageId)
     {
-        var storage = db.Storages.Find(storageId);
-        if (storage != null)
+        using (ApplicationContext db = new ApplicationContext())
         {
-            db.Storages.Remove(storage);
-            db.SaveChanges();
+            var storage = db.Storages.Find(storageId);
+            if (storage != null)
+            {
+                db.Storages.Remove(storage);
+                db.SaveChanges();
+            }
         }
     }
     
     public Storage GetStorageByName(string name)
     {
-        return db.Storages.FirstOrDefault(s =>s.Name == name);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Storages.FirstOrDefault(s => s.Name == name);
+        }
     }
     
     public Storage GetStorageById(long storageId)
     {
-        return db.Storages.Find(storageId);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Storages.Find(storageId);
+        }
     }
 
-    public IEnumerable<Storage> GetAllStorages()
+    public  List<Storage> GetAllStorages()
     {
-        return db.Storages.ToList();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Storages.ToList();
+        }
     }
     
-    public IEnumerable<Storage> GetAllStoragesByCompanyId(long companyId)
+    public  List<Storage> GetAllStoragesByCompanyId(long companyId)
     {
-        return db.Storages.Where(c => c.Company != null && c.Company.Id==companyId).ToList();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Storages.Where(c => c.Company != null && c.Company.Id == companyId).ToList();
+        }
     }
 }

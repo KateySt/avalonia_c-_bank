@@ -1,5 +1,4 @@
 ﻿using System.Reactive;
-using bank.Context;
 using bank.Models;
 using bank.Repository;
 using bank.Services;
@@ -13,7 +12,7 @@ public class HomePageViewModel : ViewModelBase
     private string _name;
     private string _password;
     private User _user;
-    private readonly IUserService _userService = new UserService(new UserRepository(new ApplicationContext()));
+    private readonly IUserService _userService = new UserService(new UserRepository());
     
     public HomePageViewModel()
     {

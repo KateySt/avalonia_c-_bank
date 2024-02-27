@@ -11,9 +11,12 @@ public class User
     [Column("user_id")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { set; get; }
-    [Required]
+    [Required] 
+    [Column("name")]
     public string Name { set; get; }
     [Required]
+    [Column("password")]
     public string Password { set; get; }
-    public ICollection<Company>? Companies { get; set; }
+
+    public List<Company> Companies { get; set; } = new();
 }

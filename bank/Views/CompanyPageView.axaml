@@ -157,7 +157,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Margin="0,0,0,10" Text="Company name:" Grid.Row="0" />
+                                    <TextBlock Margin="0,0,0,10" Text="Storage name:" Grid.Row="0" />
                                     <TextBox x:Name="nameStorage" Text="{Binding StorageName, Mode=TwoWay}"
                                              Grid.Row="1" />
                                 </Grid>

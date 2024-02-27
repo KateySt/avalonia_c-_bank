@@ -9,6 +9,6 @@ public interface IUserService
     User Update(User user);
     void Delete(long userId);
     User GetUserById(long userId);
-    IEnumerable<User> GetAllUsers();
+    List<User> GetAllUsers();
     User CreateOrFindUser(User user);
 }

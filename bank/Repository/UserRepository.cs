@@ -5,47 +5,68 @@ using bank.Models;
 
 namespace bank.Repository;
 
-public class UserRepository(ApplicationContext db)
+public class UserRepository()
 {
     public void AddUser(User user)
     {
-        db.Users.Add(user);
-        db.SaveChanges();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            db.Users.Add(user);
+            db.SaveChanges();
+        }
     }
 
     public void UpdateUser(User user)
     {
-        db.Users.Update(user);
-        db.SaveChanges();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            db.Users.Update(user);
+            db.SaveChanges();
+        }
     }
 
     public bool ExistUser(User user)
     {
-        return db.Users.Any(u => u.Name == user.Name);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Users.Any(u => u.Name == user.Name);
+        }
     }
 
     public void DeleteUser(long userId)
     {
-        var user = db.Users.Find(userId);
-        if (user != null)
+        using (ApplicationContext db = new ApplicationContext())
         {
-            db.Users.Remove(user);
-            db.SaveChanges();
+            var user = db.Users.Find(userId);
+            if (user != null)
+            {
+                db.Users.Remove(user);
+                db.SaveChanges();
+            }
         }
     }
 
     public User GetUserByName(string name)
     {
-        return db.Users.FirstOrDefault(u => u.Name == name);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Users.FirstOrDefault(u => u.Name == name);
+        }
     }
 
     public User GetUserById(long userId)
     {
-        return db.Users.Find(userId);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Users.Find(userId);
+        }
     }
 
-    public IEnumerable<User> GetAllUsers()
+    public  List<User> GetAllUsers()
     {
-        return db.Users.ToList();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Users.ToList();
+        }
     }
 }

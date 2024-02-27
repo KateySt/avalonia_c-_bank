@@ -5,52 +5,76 @@ using bank.Models;
 
 namespace bank.Repository;
 
-public class CompanyRepository(ApplicationContext db)
+public class CompanyRepository()
 {
     public void AddCompany(Company company)
     {
-        db.Companies.Add(company);
-        db.SaveChanges();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            db.Companies.Add(company);
+            db.SaveChanges();
+        }
     }
 
     public void UpdateCompany(Company company)
     {
-        db.Companies.Update(company);
-        db.SaveChanges();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            db.Companies.Update(company);
+            db.SaveChanges();
+        }
     }
 
     public bool ExistCompany(Company company)
     {
-        return db.Companies.Any(c => c.Name == company.Name);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Companies.Any(c => c.Name == company.Name);
+        }
     }
 
     public void DeleteCompany(long companyId)
     {
-        var company = db.Companies.Find(companyId);
-        if (company != null)
+        using (ApplicationContext db = new ApplicationContext())
         {
-            db.Companies.Remove(company);
-            db.SaveChanges();
+            var company = db.Companies.Find(companyId);
+            if (company != null)
+            {
+                db.Companies.Remove(company);
+                db.SaveChanges();
+            }
         }
     }
     
     public Company GetCompanyByName(string name)
     {
-        return db.Companies.FirstOrDefault(c => c.Name == name);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Companies.FirstOrDefault(c => c.Name == name);
+        }
     }
     
     public Company GetCompanyById(long companyId)
     {
-        return db.Companies.Find(companyId);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Companies.Find(companyId);
+        }
     }
 
-    public IEnumerable<Company> GetAllCompanies()
+    public  List<Company> GetAllCompanies()
     {
-        return db.Companies.ToList();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Companies.ToList();
+        }
     }
     
-    public IEnumerable<Company> GetAllCompaniesByUserId(long userId)
+    public  List<Company> GetAllCompaniesByUserId(long userId)
     {
-        return db.Companies.Where(c => c.User != null && c.User.Id==userId).ToList();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Companies.Where(c => c.User != null && c.User.Id == userId).ToList();
+        }
     }
 }

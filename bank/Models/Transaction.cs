@@ -16,5 +16,6 @@ public class Transaction
     public int countProduct { set; get; }
     [Required]
     public float price { set; get; }
-    public ICollection<TransactionProduct>? TransactionProducts { get; set; } 
+
+    public List<TransactionProduct>? TransactionProducts { get; set; } = new();
 }

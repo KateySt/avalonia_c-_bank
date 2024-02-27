@@ -28,22 +28,23 @@ public class CompanyService(CompanyRepository companyRepository) : ICompanyServi
         return companyRepository.GetCompanyById(companyId);
     }
 
-    public IEnumerable<Company> GetAllCompanies()
+    public List<Company> GetAllCompanies()
     {
         return companyRepository.GetAllCompanies();
     }
 
     public Company CreateOrFindUser(Company company)
     {
-        if ( companyRepository.ExistCompany(company))
+        if (companyRepository.ExistCompany(company))
         {
-            return  companyRepository.GetCompanyByName(company.Name);
+            return companyRepository.GetCompanyByName(company.Name);
         }
+
         companyRepository.AddCompany(company);
         return company;
     }
 
-    public IEnumerable<Company> GetAllCompaniesByUserId(long userId)
+    public List<Company> GetAllCompaniesByUserId(long userId)
     {
         return companyRepository.GetAllCompaniesByUserId(userId);
     }

@@ -11,11 +11,10 @@ namespace bank.Views;
 
 public partial class CompanyPageView : UserControl
 {
-    private static readonly ApplicationContext _ap = new ApplicationContext();
     private readonly ICompanyService _companyService =
-        new CompanyService(new CompanyRepository(_ap));
+        new CompanyService(new CompanyRepository());
     private readonly IStorageService _storageService =
-        new StorageService(new StorageRepository(_ap));
+        new StorageService(new StorageRepository());
     public CompanyPageView()
     {
         InitializeComponent();

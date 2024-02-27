@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using bank.Context;
 using bank.Models;
 
 namespace bank.ViewModels;
@@ -8,19 +9,31 @@ public class GlobalStorage : INotifyPropertyChanged
 {
     private static GlobalStorage _instance;
     public static GlobalStorage Instance => _instance ??= new GlobalStorage();
-
+    private Storage _selectedStorage;
     private Company _selectedCompany;
     public Company SelectedCompany
     {
         get => _selectedCompany;
         set
         {
-            _selectedCompany= value;
+            _selectedCompany = value;
             OnPropertyChanged(nameof(SelectedCompany));
         }
     }
-    private IEnumerable<Storage> _storages= new List<Storage>();
-    public IEnumerable<Storage> Storages
+
+    public Storage SelectedStorage
+    {
+        get => _selectedStorage;
+        set
+        {
+            _selectedStorage = value;
+            OnPropertyChanged(nameof(SelectedStorage));
+        }
+    }
+
+    private  List<Storage> _storages = new();
+
+    public  List<Storage> Storages
     {
         get => _storages;
         set
@@ -29,8 +42,9 @@ public class GlobalStorage : INotifyPropertyChanged
             OnPropertyChanged(nameof(Storages));
         }
     }
-    
+
     private User _user;
+
     public User User
     {
         get => _user;
@@ -55,9 +69,9 @@ public class GlobalStorage : INotifyPropertyChanged
         }
     }
 
-    private IEnumerable<Company> _companies= new List<Company>();
+    private  List<Company> _companies = new ();
 
-    public IEnumerable<Company> Companies
+    public  List<Company> Companies
     {
         get => _companies;
         set
@@ -66,6 +80,7 @@ public class GlobalStorage : INotifyPropertyChanged
             OnPropertyChanged(nameof(Companies));
         }
     }
+
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected virtual void OnPropertyChanged(string propertyName)

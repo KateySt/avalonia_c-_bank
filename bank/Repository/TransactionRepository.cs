@@ -5,37 +5,52 @@ using bank.Models;
 
 namespace bank.Repository;
 
-public class TransactionRepository(ApplicationContext db)
+public class TransactionRepository()
 {
     public void AddTransaction(Transaction transaction)
     {
-        db.Transactions.Add(transaction);
-        db.SaveChanges();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            db.Transactions.Add(transaction);
+            db.SaveChanges();
+        }
     }
 
     public void UpdateTransaction(Transaction transaction)
     {
-        db.Transactions.Update(transaction);
-        db.SaveChanges();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            db.Transactions.Update(transaction);
+            db.SaveChanges();
+        }
     }
 
     public void DeleteTransaction(long transactionId)
     {
-        var transaction = db.Transactions.Find(transactionId);
-        if (transaction != null)
+        using (ApplicationContext db = new ApplicationContext())
         {
-            db.Transactions.Remove(transaction);
-            db.SaveChanges();
+            var transaction = db.Transactions.Find(transactionId);
+            if (transaction != null)
+            {
+                db.Transactions.Remove(transaction);
+                db.SaveChanges();
+            }
         }
     }
 
     public Transaction GetTransactionById(long transactionId)
     {
-        return db.Transactions.Find(transactionId);
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Transactions.Find(transactionId);
+        }
     }
 
-    public IEnumerable<Transaction> GetAllTransactions()
+    public  List<Transaction> GetAllTransactions()
     {
-        return db.Transactions.ToList();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Transactions.ToList();
+        }
     }
 }

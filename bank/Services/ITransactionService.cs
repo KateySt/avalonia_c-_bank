@@ -9,5 +9,5 @@ public interface ITransactionService
     Transaction Update(Transaction transaction);
     void Delete(long transactionId);
     Transaction GetTransactionById(long transactionId);
-    IEnumerable<Transaction> GetAllTransactions();
+    List<Transaction> GetAllTransactions();
 }

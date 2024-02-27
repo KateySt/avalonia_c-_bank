@@ -9,5 +9,7 @@ public interface IProductService
     Product Update(Product product);
     void Delete(long productId);
     Product GetProductById(long productId);
-    IEnumerable<Product> GetAllProducts();
+    List<Product> GetAllProducts();
+    List<Product> GetAllProductsByStorageId(long storageId);
+    List<Product> GetAllProductsByCompanyId(long companyId);
 }

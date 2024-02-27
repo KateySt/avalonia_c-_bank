@@ -28,7 +28,7 @@ public class TransactionService(TransactionRepository transactionRepository) : I
         return transactionRepository.GetTransactionById(transactionId);
     }
 
-    public IEnumerable<Transaction> GetAllTransactions()
+    public  List<Transaction> GetAllTransactions()
     {
         return transactionRepository.GetAllTransactions();
     }
