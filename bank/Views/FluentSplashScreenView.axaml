@@ -12,6 +12,7 @@
 
             <ProgressBar Name="ProgressBar1"
                          MaxWidth="200"
+                         Background="Plum"
                          Margin="0"/>
 
             <TextBlock Text="Loading..."

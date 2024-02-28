@@ -26,11 +26,22 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">
                                         <Border CornerRadius="10" ClipToBounds="True">
-                                            <Image Source="{Binding Image, Converter={StaticResource ImageHelper}}"
-                                                   MaxWidth="300" HorizontalAlignment="Left" />
+                                            <Panel>
+                                                <Panel Width="300" Background="#7FFF22DD">
+                                                    <PathIcon Height="75" Width="75"
+                                                              Data="{StaticResource mail_inbox_add_regular}" />
+                                                </Panel>
+                                                <Image Width="300"
+                                                       Source="{Binding Image, Converter={StaticResource ImageHelper}}"
+                                                       HorizontalAlignment="Left" />
+                                            </Panel>
                                         </Border>
-                                        <TextBlock Text="{Binding Name}" Margin="5" />
-                                        <TextBlock Text="{Binding Country}" Margin="5" />
+                                        <TextBlock Margin="5">
+                                            Name company: <TextBlock Text="{Binding Name}" />
+                                        </TextBlock>
+                                        <TextBlock Margin="5">
+                                            Location: <TextBlock Text="{Binding Country}" />
+                                        </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -46,7 +57,7 @@
                             Click="ShowModal">
                             <PathIcon Height="24" Data="{StaticResource add_square_regular}" />
                         </Button>
-                        <Grid x:Name="modal" EffectiveViewportChanged="ChangeModal" Margin="10">
+                        <Grid x:Name="modal" EffectiveViewportChanged="ChangeModal" Margin="10 20 10  10">
                             <Border HorizontalAlignment="Right" VerticalAlignment="Top">
                                 <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
                                     <Grid.RowDefinitions>
@@ -57,40 +68,44 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <Grid Grid.Row="0" Width="400" Margin="0,0,0,10">
+                                    <Grid Grid.Row="0" Width="300" Margin="0,0,10,10">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <TextBlock Margin="0,0,0,10" Text="Company name:" Grid.Row="0" />
-                                        <TextBox x:Name="name" Text="{Binding Name, Mode=TwoWay}" Grid.Row="1" />
+                                        <TextBox x:Name="name" Text="{Binding Name, Mode=TwoWay}"
+                                                 Watermark="Enter your company name" Grid.Row="1" />
                                     </Grid>
 
-                                    <Grid Grid.Row="1" Width="400" Margin="0,0,0,10">
+                                    <Grid Grid.Row="1" Width="300" Margin="0,0,10,10">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <TextBlock Margin="0,0,0,10" Text="E-Mail:" Grid.Row="0" />
-                                        <TextBox x:Name="email" Text="{Binding Email, Mode=TwoWay}" Grid.Row="1" />
+                                        <TextBox x:Name="email" Text="{Binding Email, Mode=TwoWay}"
+                                                 Watermark="Enter your company e-mail" Grid.Row="1" />
                                     </Grid>
 
-                                    <Grid Grid.Row="2" Width="400" Margin="0,0,0,10">
+                                    <Grid Grid.Row="2" Width="300" Margin="0,0,10,10">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <TextBlock Margin="0,0,0,10" Text="Country:" Grid.Row="0" />
-                                        <TextBox x:Name="country" Text="{Binding Country, Mode=TwoWay}" Grid.Row="1" />
+                                        <TextBox x:Name="country" Text="{Binding Country, Mode=TwoWay}"
+                                                 Watermark="Enter your company location" Grid.Row="1" />
                                     </Grid>
 
-                                    <Grid Grid.Row="3" Width="400" Margin="0,0,0,10">
+                                    <Grid Grid.Row="3" Width="300" Margin="0,0,10,10">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <TextBlock Margin="0,0,0,10" Text="Image:" Grid.Row="0" />
-                                        <TextBox x:Name="image" Text="{Binding Image, Mode=TwoWay}" Grid.Row="1" />
+                                        <TextBox x:Name="image" Text="{Binding Image, Mode=TwoWay}"
+                                                 Watermark="Enter your company image" Grid.Row="1" />
                                     </Grid>
 
                                     <Button Grid.Row="4" Content="Create"
@@ -98,50 +113,69 @@
                                             Command="{Binding CreateCompanyCommand}"
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
-                                            Margin="0,0,0,0" />
+                                            Margin="0,0,10,0" />
                                 </Grid>
                             </Border>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid IsVisible="{Binding IsSelectedCompany}" ColumnDefinitions="Auto,*">
-                <Grid Grid.Column="0" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top">
-                    <StackPanel Orientation="Vertical">
+            <Grid IsVisible="{Binding IsSelectedCompany}" ColumnDefinitions="Auto,*" Margin="10">
+                <Grid Grid.Column="0" RowDefinitions="Auto,Auto" HorizontalAlignment="Left" VerticalAlignment="Top"
+                      Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Vertical">
                         <Border CornerRadius="10" ClipToBounds="True">
-                            <Image Source="{Binding SelectedCompany.Image, Converter={StaticResource ImageHelper}}"
-                                   MaxWidth="300" HorizontalAlignment="Left" />
+                            <Panel>
+                                <Panel Width="300" Height="300" Background="#7FFF22DD">
+                                    <PathIcon Height="75" Width="75"
+                                              Data="{StaticResource mail_inbox_add_regular}" />
+                                </Panel>
+                                <Image Width="300"
+                                       Source="{Binding SelectedCompany.Image, Converter={StaticResource ImageHelper}}"
+                                       HorizontalAlignment="Left" />
+                            </Panel>
                         </Border>
-                        <TextBlock Text="{Binding SelectedCompany.Name}" Margin="5" />
-                        <TextBlock Text="{Binding SelectedCompany.Country}" Margin="5" />
+                        <TextBlock Margin="5">
+                            Name company: <TextBlock Text="{Binding SelectedCompany.Name}" />
+                        </TextBlock>
+                        <TextBlock Margin="5">
+                            Location: <TextBlock Text="{Binding SelectedCompany.Country}" />
+                        </TextBlock>
                     </StackPanel>
-                    <ListBox x:Name="storages" ItemsSource="{Binding Storages}" Margin="10"
-                             VerticalAlignment="Stretch"
-                             HorizontalAlignment="Stretch"
-                             SelectedItem="{Binding SelectedStorage}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{Binding Name}" Margin="5" />
-                                    <TextBlock Text="{Binding Country}" Margin="5" />
-                                    <TextBlock Text="{Binding Size}" Margin="5" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                    <DataGrid Grid.Row="1" x:Name="storages"
+                              ItemsSource="{Binding Source={x:Static viewModels:GlobalStorage.Instance}, Path=Storages}"
+                              SelectedItem="{Binding SelectedStorage}"
+                              IsReadOnly="True"
+                              GridLinesVisibility="All"
+                              BorderThickness="1" BorderBrush="Gray">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Storage location" Binding="{Binding Country}" />
+                            <DataGridTextColumn Header="Storage size" Binding="{Binding Size}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
-                <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <Button Command="{Binding Back}">Back</Button>
-                    <Button
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Width="32"
-                        Height="32"
-                        Margin="0 10 10 0"
-                        Click="ShowModalStorage">
+                <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"
+                      RowDefinitions="Auto,Auto,Auto">
+                    <Button Grid.Row="0" HorizontalAlignment="Right"
+                            VerticalAlignment="Top" Command="{Binding Back}">
+                        Back
+                    </Button>
+                    <Button Grid.Row="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Width="32"
+                            Height="32"
+                            Margin="0 10 10 0"
+                            Click="ShowModalStorage">
                         <PathIcon Height="24" Data="{StaticResource add_square_regular}" />
                     </Button>
-                    <Grid x:Name="modalStorage" EffectiveViewportChanged="ChangeModalStorage" Margin="10">
+                    <Grid Grid.Row="2" x:Name="modalStorage"
+                          EffectiveViewportChanged="ChangeModalStorage" Margin="10">
                         <Border HorizontalAlignment="Right" VerticalAlignment="Top">
                             <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
                                 <Grid.RowDefinitions>
@@ -152,33 +186,36 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <Grid Grid.Row="0" Width="400" Margin="0,0,0,10">
+                                <Grid Grid.Row="0" Width="200" Margin="0,0,0,10">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Margin="0,0,0,10" Text="Storage name:" Grid.Row="0" />
-                                    <TextBox x:Name="nameStorage" Text="{Binding StorageName, Mode=TwoWay}"
+                                    <TextBox x:Name="nameStorage" Watermark="Enter your storage name"
+                                             Text="{Binding StorageName, Mode=TwoWay}"
                                              Grid.Row="1" />
                                 </Grid>
 
-                                <Grid Grid.Row="1" Width="400" Margin="0,0,0,10">
+                                <Grid Grid.Row="1" Width="200" Margin="0,0,0,10">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Margin="0,0,0,10" Text="Size:" Grid.Row="0" />
-                                    <TextBox x:Name="sizeStorage" Text="{Binding StorageSize, Mode=TwoWay}"
+                                    <TextBox x:Name="sizeStorage" Watermark="Enter your storage size"
+                                             Text="{Binding StorageSize, Mode=TwoWay}"
                                              Grid.Row="1" />
                                 </Grid>
 
-                                <Grid Grid.Row="2" Width="400" Margin="0,0,0,10">
+                                <Grid Grid.Row="2" Width="200" Margin="0,0,0,10">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Margin="0,0,0,10" Text="Country:" Grid.Row="0" />
-                                    <TextBox x:Name="countryStorage" Text="{Binding StorageCountry, Mode=TwoWay}"
+                                    <TextBox x:Name="countryStorage" Watermark="Enter your storage county"
+                                             Text="{Binding StorageCountry, Mode=TwoWay}"
                                              Grid.Row="1" />
                                 </Grid>
                                 <Button Grid.Row="4" Content="Create"

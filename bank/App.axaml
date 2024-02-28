@@ -13,5 +13,6 @@
         <styling1:FluentAvaloniaTheme PreferUserAccentColor="True" />
         <StyleInclude Source="avares://bank/Assets/Icons.axaml" />
         <StyleInclude Source="avares://bank/Templates/ContentExample.axaml" />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
     </Application.Styles>
 </Application>

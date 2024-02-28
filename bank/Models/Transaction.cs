@@ -14,7 +14,9 @@ public class Transaction
     [Required]
     [Column("count_product")]
     public int CountProduct { set; get; }
-
+    [Required]
+    [Column("date")]
+    public int Date { set; get; }
     public List<TransactionProduct>? TransactionProducts { get; set; } = new();
     public List<TransactionCompany>? TransactionCompanies { get; set; } = new();
 }
