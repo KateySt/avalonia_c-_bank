@@ -62,18 +62,6 @@
                                 Path=SelectedStorage.Size}" />
                         </TextBlock>
                     </StackPanel>
-                    <DataGrid Grid.Row="1" x:Name="productDataGrid"
-                              ItemsSource="{Binding  Products}"
-                              SelectedItem="{Binding SelectedProduct}"
-                              IsReadOnly="True"
-                              GridLinesVisibility="All"
-                              BorderThickness="1" BorderBrush="Gray">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Product name" Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="Product price" Binding="{Binding Price}" />
-                            <DataGridTextColumn Header="Product count" Binding="{Binding Count}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
                 </Grid>
                 <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"
                       RowDefinitions="Auto,Auto,Auto">
@@ -89,71 +77,54 @@
                             Width="32"
                             Height="32"
                             Margin="0 10 10 0"
-                            Click="ShowModalProduct">
+                            Click="ShowModal">
                         <PathIcon Height="24" Data="{StaticResource add_square_regular}" />
                     </Button>
-                    <Grid Grid.Row="2" x:Name="modalProduct" EffectiveViewportChanged="ChangeModalProduct" Margin="10">
+                    <Grid Grid.Row="2" x:Name="modal" EffectiveViewportChanged="ChangeModal" Margin="10">
                         <Border HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <Grid Grid.Row="0" Width="200" Margin="0,0,0,10">
+                                <Grid Grid.Row="0" Width="400" Margin="0,0,0,10">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Margin="0,0,0,10" Text="Product name:" Grid.Row="0" />
-                                    <TextBox x:Name="nameProduct" Watermark="Enter your product name"
+                                    <TextBox x:Name="name" Watermark="Enter your product name"
                                              Text="{Binding Name, Mode=TwoWay}"
                                              Grid.Row="1" />
                                 </Grid>
 
-                                <Grid Grid.Row="1" Width="200" Margin="0,0,0,10">
+                                <Grid Grid.Row="1" Width="400" Margin="0,0,0,10">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Margin="0,0,0,10" Text="Count:" Grid.Row="0" />
-                                    <TextBox x:Name="countProduct" Watermark="Enter your product count"
+                                    <TextBox x:Name="count" Watermark="Enter your product count"
                                              Text="{Binding Count, Mode=TwoWay}"
                                              Grid.Row="1" />
                                 </Grid>
 
-                                <Grid Grid.Row="2" Width="200" Margin="0,0,0,10">
+                                <Grid Grid.Row="2" Width="400" Margin="0,0,0,10">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Margin="0,0,0,10" Text="Price:" Grid.Row="0" />
-                                    <TextBox x:Name="priceProduct" Watermark="Enter your product price"
+                                    <TextBox x:Name="price" Watermark="Enter your product price"
                                              Text="{Binding Price, Mode=TwoWay}"
                                              Grid.Row="1" />
                                 </Grid>
 
-                                <Grid Grid.Row="3" Width="200" Margin="0,0,0,10">
-                                    <ComboBox
-                                        x:Name="ComboBox"
-                                        ItemsSource="{Binding Companies}"
-                                        Width="400"
-                                        SelectedIndex="0"
-                                        SelectedItem="{Binding CompanyProduct}"
-                                        MaxDropDownHeight="100">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Name}" />
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
-                                    </ComboBox>
-                                </Grid>
-
-                                <Button Grid.Row="4" Content="Create"
-                                        Click="ClickHandlerProduct"
+                                <Button Grid.Row="3" Content="Create"
+                                        Click="ClickHandler"
                                         Command="{Binding CreateProductCommand}"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Bottom"

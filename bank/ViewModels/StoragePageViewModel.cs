@@ -17,7 +17,6 @@ public class StoragePageViewModel : ViewModelBase
     private Storage _selectedStorage;
     private  List<Storage> _storages = GlobalStorage.Instance.Storages;
     private bool _isSelectedStorage;
-    private Company _companyProduct;
 
     private readonly IStorageService _storageService =
         new StorageService(new StorageRepository());
