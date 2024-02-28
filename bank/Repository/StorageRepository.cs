@@ -46,7 +46,7 @@ public class StorageRepository()
             }
         }
     }
-    
+
     public Storage GetStorageByName(string name)
     {
         using (ApplicationContext db = new ApplicationContext())
@@ -54,7 +54,7 @@ public class StorageRepository()
             return db.Storages.FirstOrDefault(s => s.Name == name);
         }
     }
-    
+
     public Storage GetStorageById(long storageId)
     {
         using (ApplicationContext db = new ApplicationContext())
@@ -63,19 +63,35 @@ public class StorageRepository()
         }
     }
 
-    public  List<Storage> GetAllStorages()
+    public List<Storage> GetAllStorages()
     {
         using (ApplicationContext db = new ApplicationContext())
         {
             return db.Storages.ToList();
         }
     }
-    
-    public  List<Storage> GetAllStoragesByCompanyId(long companyId)
+
+    public List<Storage> GetAllStoragesByCompanyId(long companyId)
     {
         using (ApplicationContext db = new ApplicationContext())
         {
             return db.Storages.Where(c => c.Company != null && c.Company.Id == companyId).ToList();
+        }
+    }
+
+    public List<Storage> GetAllStoragesByUserId(long userId)
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Storages.Where(c => c.Company.User != null && c.Company.User.Id == userId).ToList();
+        }
+    }
+
+    public int countOfProductOnStorage(long storageId)
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Storages.Count(s => s.StorageProducts.Any(s=>s.StorageId==storageId));
         }
     }
 }

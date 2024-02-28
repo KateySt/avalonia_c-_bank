@@ -1,7 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
-using bank.Context;
 using bank.Repository;
 using bank.Services;
 using bank.Services.Impl;
@@ -59,7 +58,7 @@ public partial class CompanyPageView : UserControl
 
     private void ChangeModalStorage(object? sender, EffectiveViewportChangedEventArgs e)
     {
-        if (GlobalStorage.Instance.SelectedCompany!=null)
+        if (GlobalStorage.Instance.SelectedCompany != null)
         {
             storageDataGrid.ItemsSource =  _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
             GlobalStorage.Instance.Storages =  _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);

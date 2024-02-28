@@ -1,7 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
-using bank.Context;
 using bank.Repository;
 using bank.Services;
 using bank.Services.Impl;
@@ -13,29 +12,37 @@ public partial class StoragePageView : UserControl
 {
     private readonly IStorageService _storageService =
         new StorageService(new StorageRepository());
-
+    private readonly IProductService _productService =
+        new ProductService(new ProductRepository());
     public StoragePageView()
     {
         InitializeComponent();
+        modalProduct.IsVisible = false;
+        ComboBox.SelectedIndex = 0;
+       
     }
 
-    private void ShowModal(object? sender, RoutedEventArgs e)
+    private void ShowModalProduct(object? sender, RoutedEventArgs e)
     {
-        modal.IsVisible = !modal.IsVisible;
-        name.Text = "";
-        count.Text = "";
-        price.Text = "";
+        modalProduct.IsVisible = !modalProduct.IsVisible;
+        nameProduct.Text = "";
+        countProduct.Text = "0";
+        priceProduct.Text = "0";
+        ComboBox.SelectedIndex = 0; 
     }
 
-    private void ChangeModal(object? sender, EffectiveViewportChangedEventArgs e)
+    private void ChangeModalProduct(object? sender, EffectiveViewportChangedEventArgs e)
     {
-        storages.ItemsSource = _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
-        GlobalStorage.Instance.Storages = 
-            _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
+     
     }
 
-    private void ClickHandler(object? sender, RoutedEventArgs e)
+    private void ClickHandlerProduct(object? sender, RoutedEventArgs e)
     {
-        modal.IsVisible = !modal.IsVisible;
+        modalProduct.IsVisible = !modalProduct.IsVisible;
+        if (GlobalStorage.Instance.SelectedStorage!=null)
+        {
+            productDataGrid.ItemsSource =
+                        _productService.GetAllProductsByStorageId(GlobalStorage.Instance.SelectedStorage.Id);
+        }
     }
 }

@@ -69,6 +69,18 @@ public class GlobalStorage : INotifyPropertyChanged
         }
     }
 
+    private  List<Product> _products = new ();
+    
+    public  List<Product> Products
+    {
+        get => _products;
+        set
+        {
+            _products = value;
+            OnPropertyChanged(nameof(Products));
+        }
+    }
+    
     private  List<Company> _companies = new ();
 
     public  List<Company> Companies

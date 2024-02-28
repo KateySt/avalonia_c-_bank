@@ -46,11 +46,11 @@ public class UserRepository()
         }
     }
 
-    public User GetUserByName(string name)
+    public User GetUserByNameAndPassword(string name, string password)
     {
         using (ApplicationContext db = new ApplicationContext())
         {
-            return db.Users.FirstOrDefault(u => u.Name == name);
+            return db.Users.FirstOrDefault(u => u.Name == name && u.Password == password);
         }
     }
 
