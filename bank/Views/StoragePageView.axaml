@@ -11,8 +11,8 @@
     </Design.DataContext>
 
     <ScrollViewer>
-        <Grid IsVisible="{Binding Source={x:Static viewModels:GlobalStorage.Instance}, Path=IsUserEmpty}">
-            <Grid IsVisible="{Binding !IsSelectedStorage}">
+        <Grid>
+            <Grid IsVisible="{Binding !IsSelectedStorage}" ColumnDefinitions="Auto">
                 <Grid Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <ListBox x:Name="storages" ItemsSource="{Binding Storages}" Margin="10"
                              VerticalAlignment="Stretch"
@@ -21,8 +21,15 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{Binding Name}" Margin="5" />
-                                    <TextBlock Text="{Binding Country}" Margin="5" />
+                                    <TextBlock Margin="5">
+                                        Storage name : <TextBlock Text="{Binding Name}" />
+                                    </TextBlock>
+                                    <TextBlock Margin="5">
+                                        Storage county : <TextBlock Text="{Binding Country}" />
+                                    </TextBlock>
+                                    <TextBlock Margin="5">
+                                        Storage size : <TextBlock Text="{Binding Size}" />
+                                    </TextBlock>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -30,35 +37,47 @@
                 </Grid>
             </Grid>
 
-            <Grid IsVisible="{Binding IsSelectedStorage}" ColumnDefinitions="Auto,*">
+            <Grid IsVisible="{Binding IsSelectedStorage}" ColumnDefinitions="Auto,Auto">
                 <Grid Grid.Column="0">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock
-                            Text="{Binding Source={x:Static viewModels:GlobalStorage.Instance}, 
-                                Path=SelectedStorage.Name}"
-                            Margin="5" />
-                        <TextBlock
-                            Text="{Binding Source={x:Static viewModels:GlobalStorage.Instance},
-                                Path=SelectedStorage.Country}"
-                            Margin="5" />
-                        <TextBlock
-                            Text="{Binding Source={x:Static viewModels:GlobalStorage.Instance}, 
-                                Path=SelectedStorage.Size}"
-                            Margin="5" />
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <TextBlock Margin="5">
+                            Storage name:
+                            <TextBlock
+                                Text="{Binding Source={x:Static viewModels:GlobalStorage.Instance}, 
+                                Path=SelectedStorage.Name}" />
+                        </TextBlock>
+                        <TextBlock Margin="5">
+                            Storage country :
+                            <TextBlock
+                                Text="{Binding Source={x:Static viewModels:GlobalStorage.Instance},
+                                Path=SelectedStorage.Country}" />
+                        </TextBlock>
+                        <TextBlock Margin="5">
+                            Storage size :
+                            <TextBlock
+                                Text="{Binding Source={x:Static viewModels:GlobalStorage.Instance}, 
+                                Path=SelectedStorage.Size}" />
+                        </TextBlock>
                     </StackPanel>
                 </Grid>
-                <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <Button Command="{Binding Back}">Back</Button>
-                    <Button
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Width="32"
-                        Height="32"
-                        Margin="0 10 10 0"
-                        Click="ShowModal">
+                <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"
+                      RowDefinitions="Auto,Auto,Auto">
+                    <Button Grid.Row="0"
+                            Command="{Binding Back}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top">
+                        Back
+                    </Button>
+                    <Button Grid.Row="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Width="32"
+                            Height="32"
+                            Margin="0 10 10 0"
+                            Click="ShowModal">
                         <PathIcon Height="24" Data="{StaticResource add_square_regular}" />
                     </Button>
-                    <Grid x:Name="modal" EffectiveViewportChanged="ChangeModal" Margin="10">
+                    <Grid Grid.Row="2" x:Name="modal" EffectiveViewportChanged="ChangeModal" Margin="10">
                         <Border HorizontalAlignment="Right" VerticalAlignment="Top">
                             <Grid RowDefinitions="Auto,Auto,Auto,Auto">
                                 <Grid.RowDefinitions>
@@ -74,7 +93,8 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Margin="0,0,0,10" Text="Product name:" Grid.Row="0" />
-                                    <TextBox x:Name="name" Text="{Binding Name, Mode=TwoWay}"
+                                    <TextBox x:Name="name" Watermark="Enter your product name"
+                                             Text="{Binding Name, Mode=TwoWay}"
                                              Grid.Row="1" />
                                 </Grid>
 
@@ -84,20 +104,22 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Margin="0,0,0,10" Text="Count:" Grid.Row="0" />
-                                    <TextBox x:Name="count" Text="{Binding Count, Mode=TwoWay}"
+                                    <TextBox x:Name="count" Watermark="Enter your product count"
+                                             Text="{Binding Count, Mode=TwoWay}"
                                              Grid.Row="1" />
                                 </Grid>
-                                
+
                                 <Grid Grid.Row="2" Width="400" Margin="0,0,0,10">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <TextBlock Margin="0,0,0,10" Text="Price:" Grid.Row="0" />
-                                    <TextBox x:Name="price" Text="{Binding Price, Mode=TwoWay}"
+                                    <TextBox x:Name="price" Watermark="Enter your product price"
+                                             Text="{Binding Price, Mode=TwoWay}"
                                              Grid.Row="1" />
                                 </Grid>
-                                
+
                                 <Button Grid.Row="3" Content="Create"
                                         Click="ClickHandler"
                                         Command="{Binding CreateProductCommand}"

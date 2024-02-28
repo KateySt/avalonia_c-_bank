@@ -61,7 +61,7 @@ public partial class CompanyPageView : UserControl
     {
         if (GlobalStorage.Instance.SelectedCompany!=null)
         {
-            storages.ItemsSource =  _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
+            storageDataGrid.ItemsSource =  _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
             GlobalStorage.Instance.Storages =  _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
         }
     }
