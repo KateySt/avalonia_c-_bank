@@ -4,7 +4,7 @@ using bank.Repository;
 
 namespace bank.Services.Impl;
 
-public class StorageService(StorageRepository storageRepository): IStorageService
+public class StorageService(StorageRepository storageRepository) : IStorageService
 {
     public Storage Add(Storage storage)
     {
@@ -28,13 +28,18 @@ public class StorageService(StorageRepository storageRepository): IStorageServic
         return storageRepository.GetStorageById(storageId);
     }
 
-    public  List<Storage> GetAllStorages()
+    public List<Storage> GetAllStorages()
     {
         return storageRepository.GetAllStorages();
     }
 
-    public  List<Storage> GetAllStoragesByCompanyId(long companyId)
+    public List<Storage> GetAllStoragesByCompanyId(long companyId)
     {
         return storageRepository.GetAllStoragesByCompanyId(companyId);
+    }
+
+    public List<Storage> GetAllStoragesByUserId(long userId)
+    {
+        return storageRepository.GetAllStoragesByUserId(userId);
     }
 }

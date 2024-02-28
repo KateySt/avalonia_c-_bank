@@ -10,7 +10,8 @@
         WindowStartupLocation="CenterScreen"
         Width="1100"
         Height="700"
-        ExtendClientAreaToDecorationsHint="True">
+        ExtendClientAreaToDecorationsHint="True"
+        Icon="/Assets/Images/payment-system.png" > 
 
     <Design.DataContext>
         <viewModels:MainWindowViewModel />

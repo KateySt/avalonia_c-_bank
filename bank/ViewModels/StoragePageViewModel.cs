@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using bank.Models;
 using bank.Repository;
@@ -16,6 +17,7 @@ public class StoragePageViewModel : ViewModelBase
     private Storage _selectedStorage;
     private  List<Storage> _storages = GlobalStorage.Instance.Storages;
     private bool _isSelectedStorage;
+    private Company _companyProduct;
 
     private readonly IStorageService _storageService =
         new StorageService(new StorageRepository());
@@ -25,7 +27,7 @@ public class StoragePageViewModel : ViewModelBase
 
     private readonly ICompanyService _companyService =
         new CompanyService(new CompanyRepository());
-
+    private  List<Company> _companies = GlobalStorage.Instance.Companies;
     public ReactiveCommand<Unit, Unit> CreateProductCommand { get; }
 
     public StoragePageViewModel()
@@ -40,10 +42,33 @@ public class StoragePageViewModel : ViewModelBase
                 && float.IsPositive(price)
         ));
         GlobalStorage.Instance.Storages =
-            _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
+            _storageService.GetAllStoragesByUserId(GlobalStorage.Instance.User.Id);
+        GlobalStorage.Instance.Companies = _companyService.GetAllCompaniesByUserId(GlobalStorage.Instance.User.Id);
+        Companies = GlobalStorage.Instance.Companies.OrderBy(c=>c.Name).ToList();
         Storages = GlobalStorage.Instance.Storages;
     }
+    
+    public  List<Company> Companies
+    {
+        get => _companies;
+        set
+        {
+            _companies = value;
+            OnPropertyChanged(nameof(Companies));
+            _companies = GlobalStorage.Instance.Companies;
+        }
+    }
 
+    public Company CompanyProduct
+    {
+        get => _companyProduct;
+        set
+        {
+            _companyProduct = value;
+            OnPropertyChanged(nameof(CompanyProduct));
+        }
+    }
+    
     public Storage SelectedStorage
     {
         get => _selectedStorage;
@@ -127,7 +152,7 @@ public class StoragePageViewModel : ViewModelBase
         var productCompany = new ProductCompany
         {
             ProductId = product.Id,
-            CompanyId = GlobalStorage.Instance.SelectedCompany.Id
+            CompanyId = CompanyProduct.Id
         };
         product.ProductCompanies.Add(productCompany);
         _productService.Add(product);

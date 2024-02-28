@@ -16,7 +16,7 @@ public class UserService(UserRepository userRepository) : IUserService
     {
         if (userRepository.ExistUser(user))
         {
-            return userRepository.GetUserByName(user.Name);
+            return userRepository.GetUserByNameAndPassword(user.Name, user.Password);
         }
         userRepository.AddUser(user);
         return user;

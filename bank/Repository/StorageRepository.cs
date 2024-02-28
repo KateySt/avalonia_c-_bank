@@ -78,4 +78,12 @@ public class StorageRepository()
             return db.Storages.Where(c => c.Company != null && c.Company.Id == companyId).ToList();
         }
     }
+    
+    public  List<Storage> GetAllStoragesByUserId(long userId)
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Storages.Where(c => c.Company.User != null && c.Company.User.Id == userId).ToList();
+        }
+    }
 }

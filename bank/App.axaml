@@ -15,4 +15,12 @@
         <StyleInclude Source="avares://bank/Templates/ContentExample.axaml" />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
     </Application.Styles>
+    
+    <TrayIcon.Icons>
+        <TrayIcons>
+            <TrayIcon Icon="/Assets/Images/payment-system.png" 
+                      ToolTipText="Bank system">
+            </TrayIcon>
+        </TrayIcons>
+    </TrayIcon.Icons>
 </Application>

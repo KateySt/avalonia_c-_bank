@@ -1,7 +1,7 @@
-﻿using Avalonia.Controls;
+﻿using System.Linq;
+using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
-using bank.Context;
 using bank.Repository;
 using bank.Services;
 using bank.Services.Impl;
@@ -17,25 +17,26 @@ public partial class StoragePageView : UserControl
     public StoragePageView()
     {
         InitializeComponent();
+        modalProduct.IsVisible = false;
     }
 
-    private void ShowModal(object? sender, RoutedEventArgs e)
+    private void ShowModalProduct(object? sender, RoutedEventArgs e)
     {
-        modal.IsVisible = !modal.IsVisible;
-        name.Text = "";
-        count.Text = "";
-        price.Text = "";
+        modalProduct.IsVisible = !modalProduct.IsVisible;
+        nameProduct.Text = "";
+        countProduct.Text = "0";
+        priceProduct.Text = "0";
     }
 
-    private void ChangeModal(object? sender, EffectiveViewportChangedEventArgs e)
+    private void ChangeModalProduct(object? sender, EffectiveViewportChangedEventArgs e)
     {
-        storages.ItemsSource = _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
+        storages.ItemsSource = _storageService.GetAllStoragesByUserId(GlobalStorage.Instance.User.Id);
         GlobalStorage.Instance.Storages = 
-            _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
+            _storageService.GetAllStoragesByUserId(GlobalStorage.Instance.User.Id);
     }
 
-    private void ClickHandler(object? sender, RoutedEventArgs e)
+    private void ClickHandlerProduct(object? sender, RoutedEventArgs e)
     {
-        modal.IsVisible = !modal.IsVisible;
+        modalProduct.IsVisible = !modalProduct.IsVisible;
     }
 }

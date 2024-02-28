@@ -11,4 +11,5 @@ public interface IStorageService
     Storage GetStorageById(long storageId);
     List<Storage> GetAllStorages();
     List<Storage> GetAllStoragesByCompanyId(long companyId);
+    List<Storage> GetAllStoragesByUserId(long userId);
 }
