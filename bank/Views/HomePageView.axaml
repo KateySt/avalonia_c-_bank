@@ -16,31 +16,36 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid IsVisible="{Binding Source={x:Static viewModels1:GlobalStorage.Instance}, Path=!IsUserEmpty}" Grid.Row="0"
-              RowDefinitions="Auto,Auto,Auto">
-            <Grid Grid.Row="0" Width="400" Margin="0,0,0,10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBlock Margin="0,0,0,10" Text="Name:" Grid.Row="0" />
-                <TextBox Text="{Binding Name, Mode=TwoWay}" Watermark="Enter your name" Grid.Row="1" />
-            </Grid>
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto">
+            <Grid Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" IsVisible="{Binding Source={x:Static viewModels1:GlobalStorage.Instance}, Path=!IsUserEmpty}"
+                  RowDefinitions="Auto,Auto,Auto">
+                <Grid Grid.Row="0" Width="400" Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="0,0,0,10" Text="Name:" Grid.Row="0" />
+                    <TextBox Text="{Binding Name, Mode=TwoWay}" Watermark="Enter your name" Grid.Row="1" />
+                </Grid>
 
-            <Grid Grid.Row="1" Width="400" Margin="0,0,0,10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBlock Margin="0,0,0,10" Text="Password:" Grid.Row="0" />
-                <TextBox Text="{Binding Password, Mode=TwoWay}" PasswordChar="*" Watermark="Enter your password" Grid.Row="1" />
-            </Grid>
+                <Grid Grid.Row="1" Width="400" Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="0,0,0,10" Text="Password:" Grid.Row="0" />
+                    <TextBox Text="{Binding Password, Mode=TwoWay}" PasswordChar="*" Watermark="Enter your password"
+                             Grid.Row="1" />
+                </Grid>
 
-            <Button Grid.Row="2" Content="Create or Login"
-                    Command="{Binding CreateOrLoginCommand}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Margin="0,0,0,0" />
+                <Button Grid.Row="2" Content="Create or Login"
+                        Command="{Binding CreateOrLoginCommand}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,0,0" />
+            </Grid>
+            <!--TODO maine view-->
+            
         </Grid>
 
         <Grid IsVisible="{Binding Source={x:Static viewModels1:GlobalStorage.Instance}, Path=IsUserEmpty}" Grid.Row="1"

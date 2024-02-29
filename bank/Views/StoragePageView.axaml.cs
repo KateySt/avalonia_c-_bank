@@ -1,7 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
-using bank.Context;
 using bank.Repository;
 using bank.Services;
 using bank.Services.Impl;
@@ -34,16 +33,15 @@ public partial class StoragePageView : UserControl
 
     private void ChangeModalProduct(object? sender, EffectiveViewportChangedEventArgs e)
     {
-     
+        if (GlobalStorage.Instance.SelectedStorage!=null)
+        {
+            productDataGrid.ItemsSource =
+                _productService.GetAllProductsByStorageId(GlobalStorage.Instance.SelectedStorage.Id);
+        }
     }
 
     private void ClickHandlerProduct(object? sender, RoutedEventArgs e)
     {
         modalProduct.IsVisible = !modalProduct.IsVisible;
-        if (GlobalStorage.Instance.SelectedStorage!=null)
-        {
-            productDataGrid.ItemsSource =
-                        _productService.GetAllProductsByStorageId(GlobalStorage.Instance.SelectedStorage.Id);
-        }
     }
 }

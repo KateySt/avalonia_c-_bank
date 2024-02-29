@@ -9,14 +9,4 @@ public partial class ProductPageView : UserControl
     {
         InitializeComponent();
     }
-
-    public void Next(object source, RoutedEventArgs args)
-    {
-        slides.Next();
-    }
-
-    public void Previous(object source, RoutedEventArgs args) 
-    {
-        slides.Previous();
-    }
 }

@@ -30,6 +30,8 @@ public class StoragePageViewModel : ViewModelBase
     private Product _selectedProduct;
     public ReactiveCommand<Unit, Unit> CreateProductCommand { get; }
     private  List<Product> _products = new ();
+    private Company _companyProduct;
+
     public StoragePageViewModel()
     {
         CreateProductCommand = ReactiveCommand.Create(ExecuteCreateProductCommand, this.WhenAnyValue(
