@@ -88,4 +88,14 @@ public class ProductRepository()
                 .ToList();
         }
     }
+    
+    public  List<Product> GetAllProductsByUserId(long userId)
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Products
+                .Where(p => p.ProductCompanies != null && p.ProductCompanies.Any(c => c.Company.User.Id == userId))
+                .ToList();
+        }
+    }
 }

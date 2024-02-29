@@ -1,10 +1,81 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:bank.ViewModels"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="700"
-             x:Class="bank.Views.ProductPageView">
+             x:Class="bank.Views.ProductPageView"
+             x:DataType="viewModels:ProductPageViewModel">
+    <Design.DataContext>
+        <viewModels:ProductPageViewModel />
+    </Design.DataContext>
+
     <ScrollViewer>
-        
+        <Grid>
+            <Grid IsVisible="{Binding !IsSelectedProduct}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <ListBox ItemsSource="{Binding Products}" Margin="10"
+                         VerticalAlignment="Stretch"
+                         HorizontalAlignment="Stretch"
+                         SelectedItem="{Binding SelectedProduct}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Margin="5">
+                                    Product name : <TextBlock Text="{Binding Name}" />
+                                </TextBlock>
+                                <TextBlock Margin="5">
+                                    Product count : <TextBlock Text="{Binding Count}" />
+                                </TextBlock>
+                                <TextBlock Margin="5">
+                                    Product price : <TextBlock Text="{Binding Price}" />
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            <Grid IsVisible="{Binding   IsSelectedProduct}">
+                <Grid RowDefinitions="Auto,Auto,Auto" HorizontalAlignment="Left"
+                      VerticalAlignment="Top" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Vertical" Margin="10">
+                        <TextBlock Margin="5">
+                            Product name:
+                            <TextBlock
+                                Text="{Binding SelectedProduct.Name}" />
+                        </TextBlock>
+                        <TextBlock Margin="5">
+                            Product count :
+                            <TextBlock
+                                Text="{Binding SelectedProduct.Count}" />
+                        </TextBlock>
+                        <TextBlock Margin="5">
+                            Product price :
+                            <TextBlock
+                                Text="{Binding SelectedProduct.Price}" />
+                        </TextBlock>
+                    </StackPanel>
+                    <Grid Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top"
+                          RowDefinitions="Auto,Auto,Auto">
+                        <Button Grid.Row="0"
+                                Command="{Binding Back}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top">
+                            Back
+                        </Button>
+                    </Grid>
+                </Grid>
+                <lvc:CartesianChart Series="{Binding Series}" 
+                                    AnimationsSpeed="00:00:00.500"
+                                    Height="500"
+                                    VerticalAlignment="Bottom"
+                                    ZoomMode="X" />
+            </Grid>
+        </Grid>
     </ScrollViewer>
 </UserControl>

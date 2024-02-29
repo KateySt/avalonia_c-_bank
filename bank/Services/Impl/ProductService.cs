@@ -42,4 +42,9 @@ public class ProductService(ProductRepository productRepository) : IProductServi
     {
         return productRepository.GetAllProductsByCompanyId(companyId);
     }
+
+    public List<Product> GetAllProductsByUserId(long userId)
+    {
+        return productRepository.GetAllProductsByUserId(userId);
+    }
 }
