@@ -8,7 +8,9 @@
     <Panel Background="#141921">
         <StackPanel Spacing="10"
                     VerticalAlignment="Center">
-
+            <Image Source="../Assets/Images/payment-system.png"
+                   Height="300"
+                   Width="300"/>
             <ProgressBar Name="ProgressBar1"
                          MaxWidth="200"
                          Background="White"
@@ -18,7 +20,7 @@
                        Name="LoadingText"
                        HorizontalAlignment="Center"
                        FontSize="14"
-                       Foreground="Purple" />
+                       Foreground="White" />
         </StackPanel>
     </Panel>
 </UserControl>
