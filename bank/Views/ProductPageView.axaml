@@ -71,8 +71,9 @@
                     </Grid>
                 </Grid>
                 <lvc:CartesianChart Series="{Binding Series}" 
+                                    XAxes="{Binding XAxes}"
                                     AnimationsSpeed="00:00:00.500"
-                                    Height="500"
+                                    Height="400"
                                     VerticalAlignment="Bottom"
                                     ZoomMode="X" />
             </Grid>

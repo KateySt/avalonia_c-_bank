@@ -19,7 +19,6 @@ public partial class StoragePageView : UserControl
         InitializeComponent();
         modalProduct.IsVisible = false;
         ComboBox.SelectedIndex = 0;
-       
     }
 
     private void ShowModalProduct(object? sender, RoutedEventArgs e)

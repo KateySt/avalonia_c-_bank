@@ -53,4 +53,18 @@ public class TransactionRepository()
             return db.Transactions.ToList();
         }
     }
+    
+    public List<Transaction> GetAllTransactionsByProductId(long productId, long userId)
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Transactions
+                .Where(t => t.TransactionCompanies != null
+                            && t.TransactionProducts != null
+                            && t.TransactionProducts.Any(tp => tp.ProductId == productId)
+                            && t.TransactionCompanies.Any(tc => tc.Company.User != null && 
+                                                               tc.Company.User.Id == userId))
+                .ToList();
+        }
+    }
 }

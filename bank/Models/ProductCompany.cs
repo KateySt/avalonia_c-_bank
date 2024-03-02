@@ -18,5 +18,5 @@ public class ProductCompany
     [ForeignKey("company_id")]
     public long CompanyId { get; set; }
 
-    public Company? Company { get; set; }
+    public Company Company { get; set; }
 }

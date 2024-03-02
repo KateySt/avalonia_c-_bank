@@ -11,6 +11,7 @@ public class TransactionProduct
     [ForeignKey("transaction_id")]
     public long TransactionId { get; set; }
     public Transaction Transaction { get; set; }
+
     [Column("product_id")]
     [Required]
     [ForeignKey("product_id")]

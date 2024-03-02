@@ -32,4 +32,9 @@ public class TransactionService(TransactionRepository transactionRepository) : I
     {
         return transactionRepository.GetAllTransactions();
     }
+
+    public List<Transaction> GetAllTransactionsByProductId(long productId, long userId)
+    {
+        return transactionRepository.GetAllTransactionsByProductId(productId, userId);
+    }
 }

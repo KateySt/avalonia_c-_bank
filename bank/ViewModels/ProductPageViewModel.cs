@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using bank.Models;
 using bank.Repository;
 using bank.Services;
 using bank.Services.Impl;
 using LiveChartsCore;
+using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 
 namespace bank.ViewModels;
@@ -18,7 +21,12 @@ public class ProductPageViewModel : ViewModelBase
     private bool _isSelectedProduct;
     private  List<Product> _products = new ();
     private readonly IProductService _productService = new ProductService(new ProductRepository());
-    private readonly ObservableCollection<Product> _observableValues;
+    private readonly ITransactionService _transactionService = new TransactionService(new TransactionRepository());
+    private readonly ObservableCollection<DateTimePoint> _observableValues;
+    public Axis[] XAxes { get; set; } =
+    {
+        new DateTimeAxis(TimeSpan.FromDays(1), date => date.ToString("MMMM dd"))
+    };
     public ObservableCollection<ISeries> Series { get; set; }
     public  List<Product> Products
     {
@@ -40,11 +48,15 @@ public class ProductPageViewModel : ViewModelBase
             Series.Clear();
             if (_selectedProduct != null)
             {
-                Series.Add(new LineSeries<Product>
+                Console.WriteLine("select");
+                Series.Add(new LineSeries<DateTimePoint>
                 {
-                    Values = new List<Product> { _selectedProduct },
-                    Mapping = (sample, index) => new((float)sample.Count, sample.Price)
+                    Values = _transactionService.GetAllTransactionsByProductId(_selectedProduct.Id,
+                            GlobalStorage.Instance.User.Id)
+                        .Select(t => new DateTimePoint(t.Date, t.CountProduct))
+                        .ToList()
                 });
+                Console.WriteLine("select");
             }
             IsSelectedProduct = _selectedProduct != null;
         }
@@ -99,13 +111,11 @@ public class ProductPageViewModel : ViewModelBase
         GlobalStorage.Instance.Products = _productService.GetAllProductsByUserId(GlobalStorage.Instance.User.Id);
         Products = GlobalStorage.Instance.Products;
         
-        _observableValues = new ObservableCollection<Product>(GlobalStorage.Instance.Products);
-
         Series = new ObservableCollection<ISeries>
         {
-            new LineSeries<Product>
+            new LineSeries<DateTimePoint>
             {
-                Values = _observableValues,
+                Values = new ObservableCollection<DateTimePoint>(),
                 Mapping = (sample, index) => new(0, 0)
             }
         };

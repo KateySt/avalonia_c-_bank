@@ -9,7 +9,7 @@ public partial class MainWindow : AppWindow
     {
         InitializeComponent();
 
-        TitleBar.ExtendsContentIntoTitleBar = true;
+        TitleBar.ExtendsContentIntoTitleBar = false;
         TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
 
         SplashScreen = new ComplexSplashScreen();

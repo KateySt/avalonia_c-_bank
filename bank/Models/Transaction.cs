@@ -20,4 +20,10 @@ public class Transaction
     public DateTime Date { set; get; }
     public List<TransactionProduct>? TransactionProducts { get; set; } = new();
     public List<TransactionCompany>? TransactionCompanies { get; set; } = new();
+
+    public Transaction(int countProduct, DateTime date)
+    {
+        CountProduct = countProduct;
+        Date = date;
+    }
 }
