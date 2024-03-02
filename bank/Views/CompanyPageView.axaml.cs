@@ -17,50 +17,49 @@ public partial class CompanyPageView : UserControl
     public CompanyPageView()
     {
         InitializeComponent();
-        modal.IsVisible = false;
-        modalStorage.IsVisible = false;
+        CompanyModal.IsVisible = false;
+        ModalStorage.IsVisible = false;
     }
     
     public void ShowModal(object sender, RoutedEventArgs args)
     {
-        modal.IsVisible = !modal.IsVisible;
-        name.Text = "";
-        email.Text = "";
-        country.Text = "";
-        image.Text = "";
+        CompanyModal.IsVisible = !CompanyModal.IsVisible;
+        CompanyName.Text = "";
+        CompanyEmail.Text = "";
+        CompanyCountry.Text = "";
+        CompanyImage.Text = "";
     }
     
     public void ChangeModal(object? sender, EffectiveViewportChangedEventArgs effectiveViewportChangedEventArgs)
     {
-        companies.ItemsSource =  _companyService.GetAllCompaniesByUserId(GlobalStorage.Instance.User.Id);
+        ListCompanies.ItemsSource =  _companyService.GetAllCompaniesByUserId(GlobalStorage.Instance.User.Id);
         GlobalStorage.Instance.Companies =  _companyService.GetAllCompaniesByUserId(GlobalStorage.Instance.User.Id);
     }
     
     public void ClickHandler(object sender, RoutedEventArgs args)
     {
-        modal.IsVisible = !modal.IsVisible;
+        CompanyModal.IsVisible = !CompanyModal.IsVisible;
         
     }
     
     public void ClickStorageHandler(object sender, RoutedEventArgs args)
     {
-       modalStorage.IsVisible = !modalStorage.IsVisible;
-        
+       ModalStorage.IsVisible = !ModalStorage.IsVisible;
     }
 
     private void ShowModalStorage(object? sender, RoutedEventArgs e)
     {
-        modalStorage.IsVisible = !modalStorage.IsVisible;
-        sizeStorage.Text = "";
-        nameStorage.Text = "";
-        countryStorage.Text = "";
+        ModalStorage.IsVisible = !ModalStorage.IsVisible;
+        SizeStorage.Text = "";
+        NameStorage.Text = "";
+        CountryStorage.Text = "";
     }
 
     private void ChangeModalStorage(object? sender, EffectiveViewportChangedEventArgs e)
     {
         if (GlobalStorage.Instance.SelectedCompany != null)
         {
-            storageDataGrid.ItemsSource =  _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
+            StorageDataGrid.ItemsSource =  _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
             GlobalStorage.Instance.Storages =  _storageService.GetAllStoragesByCompanyId(GlobalStorage.Instance.SelectedCompany.Id);
         }
     }

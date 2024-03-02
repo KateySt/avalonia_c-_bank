@@ -162,6 +162,11 @@ public class CompanyPageViewModel : ViewModelBase
                 OnPropertyChanged(nameof(SelectedCompany));
                 IsSelectedCompany = _selectedCompany != null;
                 GlobalStorage.Instance.SelectedCompany = _selectedCompany;
+                if (_selectedCompany != null)
+                {
+                    GlobalStorage.Instance.Storages = _storageService.GetAllStoragesByCompanyId(SelectedCompany.Id);
+                    Storages = GlobalStorage.Instance.Storages;
+                }
             }
         }
     }
