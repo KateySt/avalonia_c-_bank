@@ -132,7 +132,7 @@
         </Grid>
         <Grid IsVisible="{Binding IsSelectedCompany}" Margin="10">
             <Grid
-                Width="500"
+                Width="600"
                 RowDefinitions="Auto,Auto"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"

@@ -182,5 +182,4 @@ public class StoragePageViewModel : ViewModelBase
         product.ProductCompanies.Add(productCompany);
         _productService.Add(product);
     }
-
 }

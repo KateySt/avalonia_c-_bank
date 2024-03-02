@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using bank.Context;
@@ -11,6 +12,7 @@ public class TransactionRepository()
     {
         using (ApplicationContext db = new ApplicationContext())
         {
+            transaction.Date = DateTime.SpecifyKind(transaction.Date, DateTimeKind.Utc);
             db.Transactions.Add(transaction);
             db.SaveChanges();
         }

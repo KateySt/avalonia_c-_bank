@@ -22,7 +22,7 @@ public class Company
     [ForeignKey("user_id")]
     public User? User { get; set; }
     public List<ProductCompany>? ProductCompanies { get; set; } = new();
-    public List<TransactionProduct>? TransactionProducts { get; set; } = new();
+    public List<TransactionCompany>? TransactionCompanies { get; set; } = new();
     public List<Storage> Storages { get; set; } = new(); 
 
     public Company(string name, string country, string image)

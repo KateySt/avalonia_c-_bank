@@ -137,19 +137,18 @@ public class HomePageViewModel : ViewModelBase
     private void CreateTransaction()
     {
         var transaction = new Transaction(CountProduct, Date); 
-        transaction = _transactionService.Add(transaction);
-       var transactionProduct = new TransactionProduct()
+        var transactionProduct = new TransactionProduct
         {
             TransactionId = transaction.Id,
             ProductId = Product.Id
         };
         transaction.TransactionProducts.Add(transactionProduct);
-        var transactionCompany = new TransactionCompany()
+        var transactionCompany = new TransactionCompany
         {
             TransactionId = transaction.Id,
             CompanyId = Company.Id
         };
         transaction.TransactionCompanies.Add(transactionCompany);
-        _transactionService.Update(transaction);
+        _transactionService.Add(transaction);
     }
 }
