@@ -17,16 +17,16 @@ public partial class StoragePageView : UserControl
     public StoragePageView()
     {
         InitializeComponent();
-        modalProduct.IsVisible = false;
+        ModalProduct.IsVisible = false;
         ComboBox.SelectedIndex = 0;
     }
 
     private void ShowModalProduct(object? sender, RoutedEventArgs e)
     {
-        modalProduct.IsVisible = !modalProduct.IsVisible;
-        nameProduct.Text = "";
-        countProduct.Text = "0";
-        priceProduct.Text = "0";
+        ModalProduct.IsVisible = !ModalProduct.IsVisible;
+        NameProduct.Text = "";
+        CountProduct.Text = "0";
+        PriceProduct.Text = "0";
         ComboBox.SelectedIndex = 0; 
     }
 
@@ -34,13 +34,13 @@ public partial class StoragePageView : UserControl
     {
         if (GlobalStorage.Instance.SelectedStorage!=null)
         {
-            productDataGrid.ItemsSource =
+            ProductDataGrid.ItemsSource =
                 _productService.GetAllProductsByStorageId(GlobalStorage.Instance.SelectedStorage.Id);
         }
     }
 
     private void ClickHandlerProduct(object? sender, RoutedEventArgs e)
     {
-        modalProduct.IsVisible = !modalProduct.IsVisible;
+        ModalProduct.IsVisible = !ModalProduct.IsVisible;
     }
 }

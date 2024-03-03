@@ -20,8 +20,8 @@ public class Product
     [Required]
     [Column("price")]
     public float Price { set; get; }
-    public List<ProductCompany>? ProductCompanies { get; set; } = new();
-    public List<StorageProduct>? StorageProducts { get; set; } = new();
+    public List<ProductCompany> ProductCompanies { get; set; } = new();
+    public List<StorageProduct> StorageProducts { get; set; } = new();
     public List<TransactionProduct>? TransactionProducts { get; set; } = new();
     public Product(string name, int count, float price)
     {

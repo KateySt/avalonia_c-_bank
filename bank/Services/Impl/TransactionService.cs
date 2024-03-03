@@ -37,4 +37,9 @@ public class TransactionService(TransactionRepository transactionRepository) : I
     {
         return transactionRepository.GetAllTransactionsByProductId(productId, userId);
     }
+
+    public List<Transaction> GetAllTransactionsByUserId(long userId)
+    {
+        return transactionRepository.GetAllTransactionsByUserId(userId);
+    }
 }

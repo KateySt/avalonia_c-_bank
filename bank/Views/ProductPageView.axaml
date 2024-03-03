@@ -10,11 +10,14 @@
     <Design.DataContext>
         <viewModels:ProductPageViewModel />
     </Design.DataContext>
-
-    <ScrollViewer>
+    
         <Grid>
-            <Grid IsVisible="{Binding !IsSelectedProduct}" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <ListBox ItemsSource="{Binding Products}" Margin="10"
+            <Grid IsVisible="{Binding !IsSelectedProduct}" 
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Top">
+                <ListBox ItemsSource="{Binding Products}" 
+                         Width="800"
+                         Margin="10"
                          VerticalAlignment="Stretch"
                          HorizontalAlignment="Stretch"
                          SelectedItem="{Binding SelectedProduct}">
@@ -78,5 +81,4 @@
                                     ZoomMode="X" />
             </Grid>
         </Grid>
-    </ScrollViewer>
 </UserControl>

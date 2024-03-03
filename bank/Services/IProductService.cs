@@ -13,4 +13,5 @@ public interface IProductService
     List<Product> GetAllProductsByStorageId(long storageId);
     List<Product> GetAllProductsByCompanyId(long companyId);
     List<Product> GetAllProductsByUserId(long userId);
+    List<Product> GetAllProductsByUserIdAndCompanyId(long userId, long companyId);
 }

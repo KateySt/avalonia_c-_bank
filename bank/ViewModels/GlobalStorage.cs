@@ -11,6 +11,7 @@ public class GlobalStorage : INotifyPropertyChanged
     public static GlobalStorage Instance => _instance ??= new GlobalStorage();
     private Storage _selectedStorage;
     private Company _selectedCompany;
+    public List<Transaction> _Transactions;
     public Company SelectedCompany
     {
         get => _selectedCompany;
@@ -40,6 +41,16 @@ public class GlobalStorage : INotifyPropertyChanged
         {
             _storages = value;
             OnPropertyChanged(nameof(Storages));
+        }
+    }
+    
+    public  List<Transaction> Transactions
+    {
+        get => _Transactions;
+        set
+        {
+            _Transactions = value;
+            OnPropertyChanged(nameof(Transactions));
         }
     }
 

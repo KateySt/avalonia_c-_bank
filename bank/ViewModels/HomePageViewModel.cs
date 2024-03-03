@@ -26,6 +26,7 @@ public class HomePageViewModel : ViewModelBase
     private Company _company;
     private Product _product;
     public int _countProduct;
+    private List<Transaction> _transactions;
     private DateTime _date = DateTime.Today;
     public ReactiveCommand<Unit, Unit> CreateTransactionCommand { get; }
     public HomePageViewModel()
@@ -37,7 +38,13 @@ public class HomePageViewModel : ViewModelBase
                                       && !string.IsNullOrWhiteSpace(password)));
         CreateTransactionCommand = ReactiveCommand.Create(CreateTransaction, this.WhenAnyValue(
             x => x.CountProduct,
-            (count) => int.IsPositive(count)));
+            (count) => int.IsPositive(count) && count != 0));
+        if (GlobalStorage.Instance.User != null)
+        {
+            GlobalStorage.Instance.Transactions =
+                _transactionService.GetAllTransactionsByUserId(GlobalStorage.Instance.User.Id);
+            Transactions = GlobalStorage.Instance.Transactions; 
+        }
     }
     
     public int CountProduct
@@ -65,8 +72,16 @@ public class HomePageViewModel : ViewModelBase
         get => _company;
         set
         {
-            _company = value;
-            OnPropertyChanged(nameof(Company));
+            if (_company != value)
+            {
+                _company = value;
+                OnPropertyChanged(nameof(Company));
+                if (Company != null && Product == null)
+                {
+                    Products = _productService.GetAllProductsByUserIdAndCompanyId(GlobalStorage.Instance.User.Id,
+                        Company.Id);
+                }
+            }
         }
     }
     
@@ -75,8 +90,16 @@ public class HomePageViewModel : ViewModelBase
         get => _product;
         set
         {
-            _product = value;
-            OnPropertyChanged(nameof(Product));
+            if (_product != value)
+            {
+                _product = value;
+                OnPropertyChanged(nameof(Product));
+                if (Product != null && Company == null)
+                {
+                    Companies = _companyService.GetAllCompaniesByUserIdAndProductId(GlobalStorage.Instance.User.Id,
+                        Product.Id);
+                }
+            }
         }
     }
     
@@ -89,6 +112,17 @@ public class HomePageViewModel : ViewModelBase
             OnPropertyChanged(nameof(Products));
         }
     }
+    
+    public  List<Transaction> Transactions
+    {
+        get => _transactions;
+        set
+        {
+           _transactions = value;
+            OnPropertyChanged(nameof(Transactions));
+        }
+    }
+    
     public  List<Company> Companies
     {
         get => _companies;
@@ -132,6 +166,9 @@ public class HomePageViewModel : ViewModelBase
         Companies = GlobalStorage.Instance.Companies.OrderBy(c=>c.Name).ToList();
         GlobalStorage.Instance.Products = _productService.GetAllProductsByUserId(User.Id);
         Products = GlobalStorage.Instance.Products.OrderBy(c=>c.Name).ToList();
+        GlobalStorage.Instance.Transactions =
+            _transactionService.GetAllTransactionsByUserId(GlobalStorage.Instance.User.Id);
+        Transactions = GlobalStorage.Instance.Transactions;
     }
     
     private void CreateTransaction()

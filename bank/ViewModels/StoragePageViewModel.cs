@@ -45,8 +45,6 @@ public class StoragePageViewModel : ViewModelBase
         ));
         GlobalStorage.Instance.Storages =
             _storageService.GetAllStoragesByUserId(GlobalStorage.Instance.User.Id);
-        GlobalStorage.Instance.Companies = _companyService.GetAllCompaniesByUserId(GlobalStorage.Instance.User.Id);
-        Companies = GlobalStorage.Instance.Companies.OrderBy(c=>c.Name).ToList();
         Storages = GlobalStorage.Instance.Storages;
     }
     public  List<Product> Products
@@ -93,6 +91,8 @@ public class StoragePageViewModel : ViewModelBase
                 {
                       GlobalStorage.Instance.Products = _productService.GetAllProductsByStorageId(SelectedStorage.Id);
                       Products = GlobalStorage.Instance.Products;
+                      GlobalStorage.Instance.Companies = _companyService.GetAllCompaniesByUserIdAndStorageId(GlobalStorage.Instance.User.Id, SelectedStorage.Id);
+                      Companies = GlobalStorage.Instance.Companies.OrderBy(c=>c.Name).ToList();
                 }
                 GlobalStorage.Instance.SelectedStorage = _selectedStorage;
             }

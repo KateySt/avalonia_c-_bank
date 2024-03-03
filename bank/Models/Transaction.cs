@@ -18,8 +18,8 @@ public class Transaction
     [Required]
     [Column("date")]
     public DateTime Date { set; get; }
-    public List<TransactionProduct>? TransactionProducts { get; set; } = new();
-    public List<TransactionCompany>? TransactionCompanies { get; set; } = new();
+    public List<TransactionProduct> TransactionProducts { get; set; } = new();
+    public List<TransactionCompany> TransactionCompanies { get; set; } = new();
 
     public Transaction(int countProduct, DateTime date)
     {

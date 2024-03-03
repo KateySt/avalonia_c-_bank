@@ -11,4 +11,5 @@ public interface ITransactionService
     Transaction GetTransactionById(long transactionId);
     List<Transaction> GetAllTransactions();
     List<Transaction> GetAllTransactionsByProductId(long productId, long userId);
+    List<Transaction> GetAllTransactionsByUserId(long userId);
 }

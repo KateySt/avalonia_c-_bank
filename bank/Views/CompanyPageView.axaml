@@ -162,7 +162,7 @@
                     </TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <TextBlock Text="Name" Width="170" />
-                        <TextBlock Text="Country" Width="170" Margin="0,0,10,0" />
+                        <TextBlock Text="Country" Width="170" />
                         <TextBlock Text="Size" Width="170" />
                     </StackPanel>
                 </StackPanel>

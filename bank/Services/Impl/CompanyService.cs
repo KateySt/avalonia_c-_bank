@@ -48,4 +48,14 @@ public class CompanyService(CompanyRepository companyRepository) : ICompanyServi
     {
         return companyRepository.GetAllCompaniesByUserId(userId);
     }
+
+    public List<Company> GetAllCompaniesByUserIdAndStorageId(long userId, long storageId)
+    {
+        return companyRepository.GetAllCompaniesByUserIdAndStorageId(userId, storageId);
+    }
+
+    public List<Company> GetAllCompaniesByUserIdAndProductId(long userId, long productId)
+    {
+        return companyRepository.GetAllCompaniesByUserIdAndProductId(userId, productId);
+    }
 }

@@ -94,7 +94,19 @@ public class ProductRepository()
         using (ApplicationContext db = new ApplicationContext())
         {
             return db.Products
-                .Where(p => p.ProductCompanies != null && p.ProductCompanies.Any(c => c.Company.User.Id == userId))
+                .Where(p => p.ProductCompanies.Any(c => c.Company.User.Id == userId))
+                .ToList();
+        }
+    }
+
+    public List<Product> GetAllProductsByUserIdAndCompanyId(long userId, long companyId)
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Products
+                .Where(p => p.ProductCompanies.Any(c => c.Company.User != null 
+                                                        && c.Company.User.Id == userId)
+                            && p.ProductCompanies.Any(c => c.CompanyId == companyId))
                 .ToList();
         }
     }

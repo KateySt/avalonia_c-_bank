@@ -11,12 +11,8 @@
         <viewModels1:HomePageViewModel />
     </Design.DataContext>
 
-    <Grid  RowDefinitions="Auto,Auto" Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto" HorizontalAlignment="Right">
+    <Grid Margin="20">
+        <Grid ColumnDefinitions="Auto,Auto" HorizontalAlignment="Right">
             <Grid Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left"
                   IsVisible="{Binding Source={x:Static viewModels1:GlobalStorage.Instance}, Path=!IsUserEmpty}"
                   RowDefinitions="Auto,Auto,Auto">
@@ -49,15 +45,23 @@
 
         </Grid>
 
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" IsVisible="{Binding Source={x:Static viewModels1:GlobalStorage.Instance}, Path=IsUserEmpty}" Grid.Row="1"
-              RowDefinitions="Auto,Auto">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Top"
+              IsVisible="{Binding Source={x:Static viewModels1:GlobalStorage.Instance}, 
+              Path=IsUserEmpty}"
+              Width="700"
+              RowDefinitions="Auto, Auto, Auto, Auto">
             <Label Grid.Row="0">Add transaction:</Label>
-            <Grid Grid.Row="1" ColumnDefinitions="Auto,Auto,Auto, Auto, Auto">
-                <CalendarDatePicker 
-                    SelectedDate="{Binding Date}"
-                    Margin="10" Grid.Column="0" />
+            <Grid Grid.Row="1" ColumnDefinitions="Auto, Auto, Auto, Auto, Auto" Margin="10">
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="0,0,0,10" Text="Date:" />
+                    <CalendarDatePicker Grid.Row="1" Width="160" SelectedDate="{Binding Date}" />
+                </Grid>
 
-                <Grid Grid.Column="1" Width="150" Margin="10">
+                <Grid Grid.Column="1" Width="160">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -65,10 +69,10 @@
                     <TextBlock Grid.Row="0" Margin="0,0,0,10" Text="Company:" />
                     <ComboBox Grid.Row="1"
                               x:Name="ComboBoxCompany"
-                              ItemsSource="{Binding Companies}"
-                              Width="150"
-                              SelectedIndex="0"
+                              ItemsSource="{Binding Companies}" 
                               SelectedItem="{Binding Company}"
+                              SelectedIndex="0"
+                              Width="160"
                               MaxDropDownHeight="100">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -78,18 +82,18 @@
                     </ComboBox>
                 </Grid>
 
-                <Grid Grid.Column="2" Width="200" Margin="10">
+                <Grid Grid.Column="2" Width="160">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Margin="0,0,0,10" Text="Product:" />
                     <ComboBox Grid.Row="1"
-                              x:Name="ComboBoxProduct"
                               ItemsSource="{Binding Products}"
-                              Width="150"
-                              SelectedIndex="0"
                               SelectedItem="{Binding Product}"
+                              SelectedIndex="0"
+                              x:Name="ComboBoxProduct"
+                              Width="160"
                               MaxDropDownHeight="100">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -99,25 +103,40 @@
                     </ComboBox>
                 </Grid>
 
-                <Grid Grid.Column="3" Width="100" Margin="10">
+                <Grid Grid.Column="3" Width="100">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="CountProduct:" Margin="0 0 0 10" Grid.Row="0" />
-                    <TextBox x:Name="CountProduct" Watermark="Enter your product price"
+                    <TextBox x:Name="CountProduct" Width="100" Watermark="Enter your product price"
                              Text="{Binding CountProduct, Mode=TwoWay}"
                              Grid.Row="1" />
                 </Grid>
                 <Button Grid.Column="4"
-                        Margin="10"
+                        Margin="0 30 0  0"
                         Width="80"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
                         PointerReleased="InputElement_OnPointerReleased"
                         Command="{Binding CreateTransactionCommand}"
                         Content="Create" />
             </Grid>
+            <StackPanel Grid.Row="2">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <TextBlock Text="Id" Width="170" />
+                    <TextBlock Text="Count of product" Width="170" />
+                    <TextBlock Text="Date" Width="170" />
+                </StackPanel>
+            </StackPanel>
+            <DataGrid x:Name="TransactionDataGrid" Grid.Row="3"
+                      ItemsSource="{Binding  Transactions}"
+                      HeadersVisibility="None"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="170" Binding="{Binding Id}" />
+                    <DataGridTextColumn Width="170" Binding="{Binding CountProduct}" />
+                    <DataGridTextColumn Width="170" Binding="{Binding Date, StringFormat=dd-MM-yyyy}" />
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </Grid>
 </UserControl>

@@ -45,7 +45,7 @@ public class CompanyRepository()
             }
         }
     }
-    
+
     public Company GetCompanyByName(string name)
     {
         using (ApplicationContext db = new ApplicationContext())
@@ -53,7 +53,7 @@ public class CompanyRepository()
             return db.Companies.FirstOrDefault(c => c.Name == name);
         }
     }
-    
+
     public Company GetCompanyById(long companyId)
     {
         using (ApplicationContext db = new ApplicationContext())
@@ -62,19 +62,41 @@ public class CompanyRepository()
         }
     }
 
-    public  List<Company> GetAllCompanies()
+    public List<Company> GetAllCompanies()
     {
         using (ApplicationContext db = new ApplicationContext())
         {
             return db.Companies.ToList();
         }
     }
-    
-    public  List<Company> GetAllCompaniesByUserId(long userId)
+
+    public List<Company> GetAllCompaniesByUserId(long userId)
     {
         using (ApplicationContext db = new ApplicationContext())
         {
             return db.Companies.Where(c => c.User != null && c.User.Id == userId).ToList();
+        }
+    }
+
+    public List<Company> GetAllCompaniesByUserIdAndStorageId(long userId, long storageId)
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Companies.Where(c => c.User != null && c.User.Id == userId
+                                                          && c.Storages.Any(s=>s.Id == storageId))
+                .ToList();
+        }
+    }
+    
+    public List<Company> GetAllCompaniesByUserIdAndProductId(long userId, long productId)
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return db.Companies
+                .Where(c => c.ProductCompanies != null 
+                                           && c.User != null && c.User.Id == userId
+                                           && c.ProductCompanies.Any(s=>s.ProductId == productId))
+                .ToList();
         }
     }
 }
