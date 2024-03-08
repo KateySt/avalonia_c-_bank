@@ -53,6 +53,7 @@ public class ProductPageViewModel : ViewModelBase
                 {
                     Values = _transactionService.GetAllTransactionsByProductId(_selectedProduct.Id,
                             GlobalStorage.Instance.User.Id)
+                        .OrderBy(t=> t.Date)
                         .Select(t => new DateTimePoint(t.Date, t.CountProduct))
                         .ToList()
                 });

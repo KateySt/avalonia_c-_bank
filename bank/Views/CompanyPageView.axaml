@@ -144,14 +144,15 @@
                 <StackPanel Grid.Row="0" Orientation="Vertical">
                     <Border CornerRadius="10" ClipToBounds="True">
                         <Panel>
-                            <Panel Height="400" Width="400" Background="#7FFF22DD">
+                            <Panel Height="300"
+                                   Width="300"
+                                   Background="#7FFF22DD">
                                 <PathIcon Height="75" Width="75"
                                           Data="{StaticResource mail_inbox_add_regular}" />
                             </Panel>
-                            <Image Height="400"
-                                   Width="400"
-                                   Source="{Binding Image, 
-                                   Converter={StaticResource ImageHelper}}" />
+                            <Image Height="300"
+                                   Width="300"
+                                   Source="{Binding Image, Converter={StaticResource ImageHelper}}" />
                         </Panel>
                     </Border>
                     <TextBlock Margin="10">
